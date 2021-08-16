@@ -1,0 +1,11 @@
+# IDEA project folder
+/.idea/
+
+# Java compilation folder
+/target/
+
+# Logs folder
+/logs/
+
+# Configuration file of IRC client and HTTP APIs
+/hellu.properties
