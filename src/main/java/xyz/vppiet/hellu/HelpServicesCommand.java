@@ -4,20 +4,18 @@ import lombok.extern.log4j.Log4j2;
 import org.kitteh.irc.client.library.event.channel.ChannelMessageEvent;
 
 import java.beans.PropertyChangeEvent;
-import java.util.Collections;
 import java.util.Objects;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 @Log4j2
 public class HelpServicesCommand extends ChannelCommand {
-	private static final String PROP_SERVICE_REGISTRATION_EVENT = "serviceRegistrationEvent";
+	private static final String PROP_IN_SERVICE_REGISTER = "serviceRegister";
 
-	private final Set<String> services;
+	private ServiceRegister serviceRegister;
 
 	public HelpServicesCommand(String service, String name, String description) {
 		super(service, name, description);
-		this.services = Collections.synchronizedSortedSet(new TreeSet<>());
+		this.serviceRegister = null;
 	}
 
 	@Override
@@ -26,33 +24,41 @@ public class HelpServicesCommand extends ChannelCommand {
 
 		String propertyName = pce.getPropertyName();
 
-		if (propertyName.equals(PROP_CHANNEL_MESSAGE_EVENT)) {
-			Object newValue = pce.getNewValue();
-			if (!(newValue instanceof ChannelMessageEvent)) return;
-
-			ChannelMessageEvent messageEvent = (ChannelMessageEvent) newValue;
-			this.handleChannelMessageEvent(messageEvent);
+		switch (propertyName) {
+			case PROP_IN_CHANNEL_MESSAGE_EVENT:
+				this.handleIncomingChannelMessageEvent(pce);
+				break;
+			case PROP_IN_SERVICE_REGISTER:
+				this.handleIncomingServiceRegister(pce);
+				break;
+			default:
+				log.warn("Property {} dismissed", propertyName);
 		}
+	}
 
-		if (propertyName.equals(PROP_SERVICE_REGISTRATION_EVENT)) {
-			Object newValue = pce.getNewValue();
-			if (!(newValue instanceof ServiceRegistrationEvent)) return;
+	private void handleIncomingServiceRegister(PropertyChangeEvent pce) {
+		Object newValue = pce.getNewValue();
 
-			ServiceRegistrationEvent event = (ServiceRegistrationEvent) newValue;
-			this.handleServiceRegistrationEvent(event);
-		}
+		if (!(newValue instanceof ServiceRegister)) return;
+
+		this.serviceRegister = (ServiceRegister) newValue;
 	}
 
 	@Override
-	public void handleChannelMessageEvent(ChannelMessageEvent event) {
-		String msg = event.getMessage().strip();
-		if (!this.matchesFilter(msg)) return;
+	String getReply(ChannelMessageEvent event) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Services: ");
 
-		event.sendReply("Services: " + String.join(", ", this.services));
-	}
+		String services;
 
-	private void handleServiceRegistrationEvent(ServiceRegistrationEvent event) {
-		String name = event.getName();
-		this.services.add(name);
+		synchronized (this.serviceRegister) {
+			services = this.serviceRegister.getServiceInfos().stream()
+					.map(ServiceInfo::getName)
+					.collect(Collectors.joining(", "));
+		}
+
+		sb.append(services);
+
+		return sb.toString();
 	}
 }

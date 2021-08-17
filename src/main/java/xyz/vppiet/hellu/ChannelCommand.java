@@ -12,11 +12,11 @@ import java.util.regex.Pattern;
 
 @Log4j2
 @ToString(onlyExplicitlyIncluded = true)
-public abstract class ChannelCommand implements Command<ChannelMessageEvent> {
+abstract class ChannelCommand implements Command<ChannelMessageEvent> {
 	@ToString.Include
 	private static final String PREFIX = ".";
 
-	protected static final String PROP_CHANNEL_MESSAGE_EVENT = "channelMessageEvent";
+	protected static final String PROP_IN_CHANNEL_MESSAGE_EVENT = "channelMessageEvent";
 
 	@ToString.Include
 	private final String service;
@@ -25,7 +25,6 @@ public abstract class ChannelCommand implements Command<ChannelMessageEvent> {
 	@ToString.Include
 	private final String name;
 
-	@ToString.Include
 	private final String description;
 	private final Pattern filter;
 
@@ -42,19 +41,28 @@ public abstract class ChannelCommand implements Command<ChannelMessageEvent> {
 
 		String propertyName = pce.getPropertyName();
 
-		if (propertyName.equals(PROP_CHANNEL_MESSAGE_EVENT)) {
-			Object newValue = pce.getNewValue();
-
-			if (!(newValue instanceof ChannelMessageEvent)) return;
-
-			ChannelMessageEvent messageEvent = (ChannelMessageEvent) newValue;
-			String msg = messageEvent.getMessage().strip();
-
-			if (!this.matchesFilter(msg)) return;
-
-			this.handleChannelMessageEvent(messageEvent);
+		switch (propertyName) {
+			case PROP_IN_CHANNEL_MESSAGE_EVENT:
+				this.handleIncomingChannelMessageEvent(pce);
+			default:
+				log.warn("Property {} dismissed", propertyName);
 		}
 	}
+
+	protected void handleIncomingChannelMessageEvent(PropertyChangeEvent pce) {
+		Object newValue = pce.getNewValue();
+
+		if (!(newValue instanceof ChannelMessageEvent)) return;
+
+		ChannelMessageEvent event = (ChannelMessageEvent) newValue;
+		String msg = event.getMessage();
+
+		if (!this.matchesFilter(msg)) return;
+
+		event.sendReply(this.getReply(event));
+	}
+
+	abstract String getReply(ChannelMessageEvent event);
 
 	@Override
 	public boolean matchesFilter(String msg) {
@@ -65,4 +73,5 @@ public abstract class ChannelCommand implements Command<ChannelMessageEvent> {
 	public String getDescription() {
 		return this.description;
 	}
+
 }

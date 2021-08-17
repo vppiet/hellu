@@ -27,23 +27,19 @@ class ChannelMessageListener implements EventListener<ChannelMessageEvent> {
 
 	private static final Pattern FILTER = Pattern.compile("^\\" + PREFIX + "\\b\\w{2,}\\b.*?");
 
-	private static final String PROP_CHANNEL_MESSAGE_EVENT = "channelMessageEvent";
-	private static final String PROP_COMMAND_REGISTRATION_EVENT = "commandRegistrationEvent";
-	private static final String PROP_SERVICE_REGISTRATION_EVENT = "serviceRegistrationEvent";
+	private static final String PROP_IN_SERVICE_INFO = "serviceInfo";
+	private static final String PROP_OUT_CHANNEL_MESSAGE_EVENT = "channelMessageEvent";
+	private static final String PROP_OUT_SERVICE_REGISTER = "serviceRegister";
 
 	private ChannelMessageEvent channelMessageEvent;
-	private CommandRegistrationEvent commandRegistrationEvent;
-	private ServiceRegistrationEvent serviceRegistrationEvent;
+	private ServiceRegister serviceRegister;
 
 	private final PropertyChangeSupport pcs;
-	private final ServiceRegistry serviceRegistry;
 
 	ChannelMessageListener() {
 		this.channelMessageEvent = null;
-		this.commandRegistrationEvent = null;
-		this.serviceRegistrationEvent = null;
 		this.pcs = new PropertyChangeSupport(this);
-		this.serviceRegistry = new ServiceRegistry();
+		this.serviceRegister = new ServiceRegister();
 	}
 
 	public static class ChannelMessageFilter implements IMessageFilter<ChannelMessageEvent> {
@@ -56,14 +52,14 @@ class ChannelMessageListener implements EventListener<ChannelMessageEvent> {
 
 	@Handler(delivery = Invoke.Asynchronously, filters = {@Filter(ChannelMessageFilter.class)}, rejectSubtypes = true)
 	public void setMessageEvent(ChannelMessageEvent channelMessageEvent) {
-		this.pcs.firePropertyChange(PROP_CHANNEL_MESSAGE_EVENT, this.channelMessageEvent, channelMessageEvent);
+		this.pcs.firePropertyChange(PROP_OUT_CHANNEL_MESSAGE_EVENT, this.channelMessageEvent, channelMessageEvent);
 		this.channelMessageEvent = channelMessageEvent;
 	}
 
 	@Override
 	public void addPropertyChangeListener(String property, PropertyChangeListener listener) {
 		if (this.hasPropertyChangeListener(property, listener)) {
-			log.error("Listener is already subscribed to the property");
+			log.error("Listener is already subscribed to the property. Duplicate listening is prohibited.");
 
 			return;
 		}
@@ -73,13 +69,51 @@ class ChannelMessageListener implements EventListener<ChannelMessageEvent> {
 
 		if (listener instanceof ChannelService) {
 			ChannelService service = (ChannelService) listener;
-
-			String name = service.getName();
-			String description = service.getDescription();
-			ServiceRegistrationEvent event = new ServiceRegistrationEvent(name, description);
-
-			this.handleServiceRegistrationEvent(event);
+			handleServiceRegistration(service);
 		}
+	}
+
+	private void handleServiceRegistration(ChannelService service) {
+		String name = service.getName();
+		String description = service.getDescription();
+
+		ServiceInfo serviceInfo = new ServiceInfo(name, description);
+
+		ServiceRegister newServiceRegister = this.serviceRegister.clone();
+		newServiceRegister.update(serviceInfo);
+		this.setServiceRegister(newServiceRegister);
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent pce) {
+		if (Objects.isNull(pce) || Objects.isNull(pce.getNewValue())) return;
+
+		String propertyName = pce.getPropertyName();
+
+		switch (propertyName) {
+			case PROP_IN_SERVICE_INFO:
+				this.handleIncomingServiceInfo(pce);
+				break;
+			default:
+				log.warn("Property {} dismissed", propertyName);
+		}
+	}
+
+	private void handleIncomingServiceInfo(PropertyChangeEvent pce) {
+		Object newValue = pce.getNewValue();
+
+		if (!(newValue instanceof ServiceInfo)) return;
+
+		ServiceInfo serviceInfo = (ServiceInfo) newValue;
+		ServiceRegister newServiceRegister = this.serviceRegister.clone();
+
+		newServiceRegister.update(serviceInfo);
+		this.setServiceRegister(newServiceRegister);
+	}
+
+	private void setServiceRegister(ServiceRegister newServiceRegister) {
+		this.pcs.firePropertyChange(PROP_OUT_SERVICE_REGISTER, this.serviceRegister, newServiceRegister);
+		this.serviceRegister = newServiceRegister;
 	}
 
 	private boolean hasPropertyChangeListener(String property, PropertyChangeListener pcl) {
@@ -92,48 +126,6 @@ class ChannelMessageListener implements EventListener<ChannelMessageEvent> {
 		}
 
 		return false;
-	}
-
-	private void handleServiceRegistrationEvent(ServiceRegistrationEvent event) {
-		String name = event.getName();
-		String description = event.getDescription();
-
-		this.serviceRegistry.addService(name, description);
-		this.setServiceRegistrationEvent(event);
-	}
-
-	private void setServiceRegistrationEvent(ServiceRegistrationEvent event) {
-		this.pcs.firePropertyChange(PROP_SERVICE_REGISTRATION_EVENT, this.serviceRegistrationEvent, event);
-		this.serviceRegistrationEvent = event;
-	}
-
-	@Override
-	public void propertyChange(PropertyChangeEvent pce) {
-		if (Objects.isNull(pce) || Objects.isNull(pce.getNewValue())) return;
-
-		String propertyName = pce.getPropertyName();
-
-		if (propertyName.equals(PROP_COMMAND_REGISTRATION_EVENT)) {
-			Object newValue = pce.getNewValue();
-			if (!(newValue instanceof CommandRegistrationEvent)) return;
-
-			CommandRegistrationEvent event = (CommandRegistrationEvent) newValue;
-			this.handleCommandRegistrationEvent(event);
-		}
-	}
-
-	private void handleCommandRegistrationEvent(CommandRegistrationEvent event) {
-		String service = event.getService();
-		String name = event.getName();
-		String description = event.getDescription();
-
-		this.serviceRegistry.addCommand(service, name, description);
-		this.setCommandRegistrationEvent(event);
-	}
-
-	private void setCommandRegistrationEvent(CommandRegistrationEvent commandRegistrationEvent) {
-		this.pcs.firePropertyChange(PROP_COMMAND_REGISTRATION_EVENT, this.commandRegistrationEvent, commandRegistrationEvent);
-		this.commandRegistrationEvent = commandRegistrationEvent;
 	}
 
 	@Override

@@ -8,8 +8,8 @@ final class MiscHelloCommand extends ChannelCommand {
 	}
 
 	@Override
-	public void handleChannelMessageEvent(ChannelMessageEvent event) {
+	public String getReply(ChannelMessageEvent event) {
 		String user = event.getActor().getNick();
-		event.sendReply("Hello, " + user + "!");
+		return "Hello, " + user + "!";
 	}
 }
