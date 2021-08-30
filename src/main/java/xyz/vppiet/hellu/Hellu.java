@@ -1,42 +1,53 @@
 package xyz.vppiet.hellu;
 
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
-import org.kitteh.irc.client.library.Client;
-import org.kitteh.irc.client.library.event.helper.ReplyableEvent;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.kitteh.irc.client.library.Client;
+
+import xyz.vppiet.hellu.services.CommandInvoke;
 
 @Log4j2
-final class Hellu {
+@Getter(AccessLevel.PUBLIC)
+public final class Hellu implements Observer {
 
 	private final Client ircClient;
-	private final Map<String, EventListener<? extends ReplyableEvent>> listeners = new HashMap<>();
+	private final ServiceManager serviceManager;
 
-	Hellu(HelluSettings settings) {
-		this.ircClient = IrcClientFactory.getInstance(settings.getIrcClient());
+	Hellu(IrcSettings is) {
+		this.ircClient = IrcClientFactory.getInstance(is);
+		this.serviceManager = new ServiceManager(this);
 	}
 
-	Client getIrcClient() {
-		return this.ircClient;
+	Hellu(HelluSettings s) {
+		this(s.getIrcSettings());
 	}
 
-	void connect() {
+	@Override
+	public void onNext(Subject sub, Object obj) {
+		if (obj instanceof CommandInvoke) {
+			CommandInvoke ci = (CommandInvoke) obj;
+			this.getServiceManager().handleCommandInvokeEvent(ci);
+		}
+	}
+
+	public void addChannel(String c) {
+		this.getIrcClient().addChannel(c);
+		log.info("Channel {} added", c);
+	}
+
+	public void connect() {
 		log.info("Connecting...");
 		this.getIrcClient().connect();
 	}
 
-	void disconnect() {
+	public void disconnect() {
 		log.info("Shutting down...");
 		this.getIrcClient().shutdown();
 	}
 
-	void joinChannel(String channel) {
-		this.getIrcClient().addChannel(channel);
-	}
-
-	void addListener(EventListener<? extends ReplyableEvent> listener) {
-		this.ircClient.getEventManager().registerEventListener(listener);
-		this.listeners.put(listener.getName(), listener);
+	public void removeChannel(String c) {
+		this.getIrcClient().removeChannel(c);
 	}
 }

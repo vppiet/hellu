@@ -9,11 +9,12 @@ import java.util.function.Consumer;
 
 @Log4j2
 final class IrcClientFactory {
+
 	private static final Consumer<String> CLIENT_LOG_INPUT = s -> log.info("[IN] {}", s);
 	private static final Consumer<String> CLIENT_LOG_OUTPUT = s -> log.info("[OUT] {}", s);
 	private static final Consumer<Exception> CLIENT_LOG_EXCEPTION = e -> log.error("Exception thrown in IRC client: ", e);
 
-	static Client getInstance(HelluSettings.IrcSettings config) {
+	static Client getInstance(IrcSettings config) {
 		final Builder builder = Client.builder();
 
 		builder.name(config.getNick())

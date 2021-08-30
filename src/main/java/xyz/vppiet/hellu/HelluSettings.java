@@ -10,35 +10,16 @@ import java.util.Properties;
 
 @Getter(AccessLevel.PACKAGE)
 final class HelluSettings {
-	private final IrcSettings ircClient;
+
+	private final IrcSettings ircSettings;
 
 	HelluSettings(String host, int port, String nick, boolean debug) {
-		this.ircClient = new IrcSettings(host, port, nick, debug);
-	}
-
-	@Getter(AccessLevel.PACKAGE)
-	final static class IrcSettings {
-		private static final String HOST_PROPERTY = "irc.host";
-		private static final String PORT_PROPERTY = "irc.port";
-		private static final String NICK_PROPERTY = "irc.nick";
-		private static final String DEBUG_PROPERTY = "irc.debug";
-
-		private final String host;
-		private final int port;
-		private final String nick;
-		private final boolean debug;
-
-		IrcSettings(String host, int port, String nick, boolean debug) {
-			this.host = host;
-			this.port = port;
-			this.nick = nick;
-			this.debug = debug;
-		}
+		this.ircSettings = new IrcSettings(host, port, nick, debug);
 	}
 
 	static HelluSettings load(String path) throws IOException {
-		Properties props = new Properties();
-		FileInputStream in = new FileInputStream(path);
+		final Properties props = new Properties();
+		final FileInputStream in = new FileInputStream(path);
 		props.load(in);
 		in.close();
 

@@ -13,10 +13,10 @@ class IrcSettingsFactoryTest {
 	void getInstance_Properties_Client() throws IOException {
 		String path = "src/test/resources/hellu-test.properties";
 		HelluSettings config = HelluSettings.load(path);
-		HelluSettings.IrcSettings ircSettingsConfig = config.getIrcClient();
+		IrcSettings ircSettings = config.getIrcSettings();
 
 		assertDoesNotThrow(() -> {
-			Client client = IrcClientFactory.getInstance(ircSettingsConfig);
+			Client client = IrcClientFactory.getInstance(ircSettings);
 		});
 	}
 }

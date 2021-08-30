@@ -2,69 +2,55 @@ package xyz.vppiet.hellu;
 
 import lombok.extern.log4j.Log4j2;
 import org.kitteh.irc.client.library.event.channel.ChannelMessageEvent;
-import org.kitteh.irc.client.library.exception.KittehNagException;
+
+import org.kitteh.irc.client.library.event.user.PrivateMessageEvent;
+
+import xyz.vppiet.hellu.eventlisteners.ChannelMessageListener;
+import xyz.vppiet.hellu.eventlisteners.EventListener;
+import xyz.vppiet.hellu.eventlisteners.PrivateMessageListener;
+import xyz.vppiet.hellu.services.Command;
+import xyz.vppiet.hellu.services.Service;
+import xyz.vppiet.hellu.services.misc.HelloCommand;
+import xyz.vppiet.hellu.services.misc.MiscService;
+import xyz.vppiet.hellu.services.misc.QuitCommand;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
 
 @Log4j2
-public final class Main {
-
-	private static final String MISC_SERVICE = "misc";
-	private static final String HELP_SERVICE = "help";
-
-	private static final String PROP_CHANNEL_MESSAGE_EVENT = "channelMessageEvent";
-	private static final String PROP_SERVICE_REGISTER = "serviceRegister";
-	private static final String PROP_SERVICE_INFO = "serviceInfo";
-
+public class Main {
 	public static void main(String[] args) throws IOException {
-		try {
-			HelluSettings config = HelluSettings.load("hellu.properties");
-			Hellu hellu = new Hellu(config);
+
+		// HELLU
+		HelluSettings settings = HelluSettings.load("hellu.properties");
+		Hellu hellu = new Hellu(settings);
 
 
-			// CHANNEL MESSAGE LISTENER
-			ChannelMessageListener channelMessageListener = new ChannelMessageListener();
-			hellu.addListener(channelMessageListener);
+		// LISTENERS
+		EventListener<ChannelMessageEvent> channelMsgListener = new ChannelMessageListener();
+		channelMsgListener.addHellu(hellu);
+
+		EventListener<PrivateMessageEvent> privateMsgListener = new PrivateMessageListener();
+		privateMsgListener.addHellu(hellu);
 
 
-			// SERVICE: HELP
-			HelpService helpService = new HelpService(
-					HELP_SERVICE,
-					"All commands belong to a service. Show all services by issuing '.help services'." +
-							" Show all commands of a service by issuing '.help <service>'." +
-							" Show description of a command by issuing '.help <service> <command>'."
-			);
-			channelMessageListener.addPropertyChangeListener(PROP_CHANNEL_MESSAGE_EVENT, helpService);
-			channelMessageListener.addPropertyChangeListener(PROP_SERVICE_REGISTER, helpService);
-			helpService.addPropertyChangeListener(PROP_SERVICE_INFO, channelMessageListener);
+		// SERVICE: MISC
+		Service miscService = new MiscService();
 
-			Command<ChannelMessageEvent> helpServicesCommand = new HelpServicesCommand(
-					HELP_SERVICE,
-					"services",
-					"Shows all services."
-			);
-			helpService.addPropertyChangeListener(PROP_CHANNEL_MESSAGE_EVENT, helpServicesCommand);
-			helpService.addPropertyChangeListener(PROP_SERVICE_REGISTER, helpServicesCommand);
+		// SERVICE: MISC, COMMAND: HELLO
+		Command helloCommand = new HelloCommand();
+		miscService.addCommand(helloCommand);
+
+		// SERVICE: MISC, COMMAND: QUIT
+		Command quitCommand = new QuitCommand();
+		miscService.addCommand(quitCommand);
+
+		// SERVICE MANAGEMENT
+		ServiceManager serviceManager = hellu.getServiceManager();
+		serviceManager.addService(miscService);
 
 
-			// SERVICE: MISC
-			ChannelService miscService = new ChannelService(
-					MISC_SERVICE,
-					"Misc service contains an assortment of unrelated commands.");
-			channelMessageListener.addPropertyChangeListener(PROP_CHANNEL_MESSAGE_EVENT, miscService);
-			miscService.addPropertyChangeListener(PROP_SERVICE_INFO, channelMessageListener);
-
-			Command<ChannelMessageEvent> miscHelloCommand = new MiscHelloCommand(
-					MISC_SERVICE,
-					"hello",
-					"Says hello.");
-			miscService.addPropertyChangeListener(PROP_CHANNEL_MESSAGE_EVENT, miscHelloCommand);
-
-			hellu.connect();
-			hellu.joinChannel("#valioliiga");
-		} catch (UnknownHostException | KittehNagException ignored) {
-
-		}
+		// RUN
+		hellu.addChannel("#hellu");
+		hellu.connect();
 	}
 }
