@@ -1,5 +1,5 @@
 package xyz.vppiet.hellu;
 
 public interface Observer {
-	void onNext(Subject subject, Object obj);
+	void onNext(Subject subj, Object obj);
 }

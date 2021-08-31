@@ -9,7 +9,7 @@ import net.engio.mbassy.subscription.SubscriptionContext;
 
 import org.kitteh.irc.client.library.event.channel.ChannelMessageEvent;
 
-import xyz.vppiet.hellu.services.CommandInvoke;
+import xyz.vppiet.hellu.CommandProperties;
 
 @Listener
 public final class ChannelMessageListener extends EventListenerBase<ChannelMessageEvent> {
@@ -17,8 +17,8 @@ public final class ChannelMessageListener extends EventListenerBase<ChannelMessa
 	@Override
 	@Handler(delivery = Invoke.Asynchronously, filters = {@Filter(MessageFilter.class)}, rejectSubtypes = true)
 	public void handleEvent(ChannelMessageEvent event) {
-		CommandInvoke ci = CommandInvoke.from(event);
-		this.notifyObservers(this, ci);
+		ListenedChannelMessage cli = new ListenedChannelMessage(event, this);
+		this.notifyObservers(this, cli);
 	}
 
 	public static final class MessageFilter implements IMessageFilter<ChannelMessageEvent> {
@@ -26,7 +26,7 @@ public final class ChannelMessageListener extends EventListenerBase<ChannelMessa
 		public boolean accepts(ChannelMessageEvent event, SubscriptionContext context) {
 			String msg = event.getMessage();
 
-			return MessagePrefix.matchesPrefixPattern(msg);
+			return CommandProperties.matchesPrefixPattern(msg);
 		}
 	}
 }

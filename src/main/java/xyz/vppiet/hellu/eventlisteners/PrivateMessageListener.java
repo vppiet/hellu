@@ -9,7 +9,7 @@ import net.engio.mbassy.subscription.SubscriptionContext;
 
 import org.kitteh.irc.client.library.event.user.PrivateMessageEvent;
 
-import xyz.vppiet.hellu.services.CommandInvoke;
+import xyz.vppiet.hellu.CommandProperties;
 
 @Listener
 public final class PrivateMessageListener extends EventListenerBase<PrivateMessageEvent> {
@@ -17,8 +17,8 @@ public final class PrivateMessageListener extends EventListenerBase<PrivateMessa
 	@Override
 	@Handler(delivery = Invoke.Asynchronously, filters = {@Filter(MessageFilter.class)}, rejectSubtypes = true)
 	public void handleEvent(PrivateMessageEvent event) {
-		CommandInvoke ci = CommandInvoke.from(event);
-		this.notifyObservers(this, ci);
+		ListenedPrivateMessage pmi = new ListenedPrivateMessage(event, this);
+		this.notifyObservers(this, pmi);
 	}
 
 	public static final class MessageFilter implements IMessageFilter<PrivateMessageEvent> {
@@ -26,7 +26,7 @@ public final class PrivateMessageListener extends EventListenerBase<PrivateMessa
 		public boolean accepts(PrivateMessageEvent event, SubscriptionContext context) {
 			String msg = event.getMessage();
 
-			return MessagePrefix.matchesPrefixPattern(msg);
+			return CommandProperties.matchesPrefixPattern(msg);
 		}
 	}
 }

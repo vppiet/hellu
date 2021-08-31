@@ -6,7 +6,8 @@ import lombok.extern.log4j.Log4j2;
 
 import org.kitteh.irc.client.library.Client;
 
-import xyz.vppiet.hellu.services.CommandInvoke;
+import xyz.vppiet.hellu.eventlisteners.ListenedChannelMessage;
+import xyz.vppiet.hellu.eventlisteners.ListenedPrivateMessage;
 
 @Log4j2
 @Getter(AccessLevel.PUBLIC)
@@ -25,10 +26,13 @@ public final class Hellu implements Observer {
 	}
 
 	@Override
-	public void onNext(Subject sub, Object obj) {
-		if (obj instanceof CommandInvoke) {
-			CommandInvoke ci = (CommandInvoke) obj;
-			this.getServiceManager().handleCommandInvokeEvent(ci);
+	public void onNext(Subject subj, Object obj) {
+		if (obj instanceof ListenedChannelMessage) {
+			ListenedChannelMessage cmi = (ListenedChannelMessage) obj;
+			this.getServiceManager().handleListenedChannelMessage(cmi);
+		} else if (obj instanceof ListenedPrivateMessage) {
+			ListenedPrivateMessage pmi = (ListenedPrivateMessage) obj;
+			this.getServiceManager().handleListenedPrivateMessage(pmi);
 		}
 	}
 

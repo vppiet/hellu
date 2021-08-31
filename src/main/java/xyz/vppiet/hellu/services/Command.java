@@ -1,10 +1,17 @@
 package xyz.vppiet.hellu.services;
 
+import xyz.vppiet.hellu.CommandInvocation;
 import xyz.vppiet.hellu.Observer;
-import xyz.vppiet.hellu.Subject;
+
+import java.util.List;
 
 public interface Command extends Observer {
-	String getName();
 	String getDescription();
-	void handleCommandInvoke(Subject sub, CommandInvoke ci);
+	String getName();
+	String getService();
+	String getUsageDescription();
+	List<CommandParameter> getParams();
+	boolean matches(CommandInvocation ci);
+	void handleServicedChannelMessage(ServicedChannelMessage scm);
+	void handleServicedPrivateMessage(ServicedPrivateMessage spm);
 }

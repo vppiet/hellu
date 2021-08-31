@@ -4,7 +4,10 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
-
+import org.kitteh.irc.client.library.event.helper.ReplyableEvent;
+import xyz.vppiet.hellu.CommandInvocation;
+import xyz.vppiet.hellu.ServiceManagedChannelMessage;
+import xyz.vppiet.hellu.ServiceManagedPrivateMessage;
 import xyz.vppiet.hellu.Subject;
 
 import java.util.Set;
@@ -25,6 +28,12 @@ public abstract class ServiceBase extends Subject implements Service {
 
 	@Override
 	public Service addCommand(Command c) {
+		if (!c.getService().equals(this.name)) {
+			log.warn("Command's service name doesn't match this service's name. Command was not added.");
+
+			return this;
+		}
+
 		this.addSubscriber(c);
 		return this;
 	}
@@ -42,6 +51,69 @@ public abstract class ServiceBase extends Subject implements Service {
 					.map(Command.class::cast)
 					.collect(Collectors.toUnmodifiableSet());
 		}
+	}
+
+	@Override
+	public String getHelp() {
+		String commands = this.getCommands().stream().map(Command::getName).collect(Collectors.joining(", "));
+		return this.getDescription() + " Commands: " + commands;
+	}
+
+	@Override
+	public void handleServiceManagedChannelMessage(ServiceManagedChannelMessage smcm) {
+		CommandInvocation ci = smcm.getCommandInvocation();
+
+		if (ci.isMatchingService()) {
+			ReplyableEvent re = smcm.getEvent();
+			this.replyWithHelp(re);
+		} else {
+			ServicedChannelMessage scm = new ServicedChannelMessage(smcm, this);
+			this.notifyObservers(this, scm);
+		}
+	}
+
+	@Override
+	public void handleServiceManagedPrivateMessage(ServiceManagedPrivateMessage smpm) {
+		CommandInvocation ci = smpm.getCommandInvoke();
+
+		if (ci.isMatchingService()) {
+			ReplyableEvent re = smpm.getEvent();
+			this.replyWithHelp(re);
+		} else {
+			ServicedPrivateMessage spm = new ServicedPrivateMessage(smpm, this);
+			this.notifyObservers(this, spm);
+		}
+	}
+
+	@Override
+	public void onNext(Subject subj, Object obj) {
+		if (obj instanceof ServiceManagedChannelMessage) {
+			ServiceManagedChannelMessage smcm = (ServiceManagedChannelMessage) obj;
+			CommandInvocation ci = smcm.getCommandInvocation();
+
+			if (!this.matches(ci)) return;
+
+			this.handleServiceManagedChannelMessage(smcm);
+		} else if (obj instanceof ServiceManagedPrivateMessage) {
+			ServiceManagedPrivateMessage smpm = (ServiceManagedPrivateMessage) obj;
+			CommandInvocation ci = smpm.getCommandInvoke();
+
+			if (!this.matches(ci)) return;
+
+			this.handleServiceManagedPrivateMessage(smpm);
+		}
+	}
+
+	@Override
+	public boolean matches(CommandInvocation ci) {
+		String service = ci.getService();
+		return service.equals(this.name);
+	}
+
+	@Override
+	public void replyWithHelp(ReplyableEvent event) {
+		String reply = this.getHelp();
+		event.sendReply(reply);
 	}
 
 	@Override

@@ -2,40 +2,41 @@ package xyz.vppiet.hellu.services.misc;
 
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
-import xyz.vppiet.hellu.ServiceManager;
-import xyz.vppiet.hellu.Subject;
+import xyz.vppiet.hellu.CommandProperties;
+import xyz.vppiet.hellu.Hellu;
 import xyz.vppiet.hellu.services.CommandBase;
-import xyz.vppiet.hellu.services.CommandInvoke;
+import xyz.vppiet.hellu.services.ServicedChannelMessage;
+import xyz.vppiet.hellu.services.ServicedPrivateMessage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 // TODO: requires privilege check
 @Log4j2
 @ToString(callSuper = true)
-public class QuitCommand extends CommandBase {
+public final class QuitCommand extends CommandBase {
+
+	private static final String SERVICE = "misc";
 	private static final String NAME = "quit";
 	private static final String DESCRIPTION = "Shuts down the irc bot.";
 
 	public QuitCommand() {
-		super(NAME, DESCRIPTION);
+		super(SERVICE, NAME, DESCRIPTION, new ArrayList<>());
 	}
 
 	@Override
-	public void handleCommandInvoke(Subject sub, CommandInvoke ci) {
-		String command = ci.getCommand();
-		if (!command.equals(this.name)) return;
-
-		log.info("Call to: {}", this);		// DEBUG
-
-		if (sub instanceof ServiceManager) {
-			ServiceManager sm = (ServiceManager) sub;
-			sm.getHellu().disconnect();
-		}
+	public void handleServicedChannelMessage(ServicedChannelMessage scm) {
+		final Hellu hellu = scm.getSourceServiceManager().getHellu();
+		this.disconnectServer(hellu);
 	}
 
 	@Override
-	public void onNext(Subject sub, Object obj) {
-		if (obj instanceof CommandInvoke) {
-			CommandInvoke ci = (CommandInvoke) obj;
-			this.handleCommandInvoke(sub, ci);
-		}
+	public void handleServicedPrivateMessage(ServicedPrivateMessage spm) {
+		final Hellu hellu = spm.getSourceServiceManager().getHellu();
+		this.disconnectServer(hellu);
+	}
+
+	private void disconnectServer(Hellu hellu) {
+		hellu.disconnect();
 	}
 }

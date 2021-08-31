@@ -12,11 +12,15 @@ public abstract class Subject {
 		this.observers = Collections.synchronizedSet(new HashSet<>());
 	}
 
-	public void addSubscriber(Observer obs) {
+	protected boolean hasSubscriber(Observer obs) {
+		return this.observers.contains(obs);
+	}
+
+	protected void addSubscriber(Observer obs) {
 		this.observers.add(obs);
 	}
 
-	public void removeSubscriber(Observer obs) {
+	protected void removeSubscriber(Observer obs) {
 		this.observers.remove(obs);
 	}
 
