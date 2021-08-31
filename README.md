@@ -23,19 +23,6 @@ The implementation is built around [Kitteh IRC Client Library (KICL)](https://ki
 manages the IRC connection and messaging. By providing message handlers, the library can listen to specific commands
 supplied by the users. Handlers are invoked asynchronously.
 
-Hellu uses SQLite for data persistence (WIP).
-
-### Main Classes
-
-- `Hellu`
-    - Ties all functionality by composition
-    - Initializes external connections
-- `BotService`
-    - Represents a specific subject
-    - Manages IRC commands
-- `BotCommand`
-    - Represents a function invoked by user input
-
 ## User Interface
 
 Hellu has four command layers:
