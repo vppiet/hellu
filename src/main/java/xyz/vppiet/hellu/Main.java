@@ -1,8 +1,8 @@
 package xyz.vppiet.hellu;
 
 import lombok.extern.log4j.Log4j2;
-import org.kitteh.irc.client.library.event.channel.ChannelMessageEvent;
 
+import org.kitteh.irc.client.library.event.channel.ChannelMessageEvent;
 import org.kitteh.irc.client.library.event.user.PrivateMessageEvent;
 
 import xyz.vppiet.hellu.eventlisteners.ChannelMessageListener;

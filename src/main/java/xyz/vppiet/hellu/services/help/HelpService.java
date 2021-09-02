@@ -15,11 +15,14 @@ import java.util.Optional;
 
 public class HelpService extends ServiceBase {
 
+	private static final String NAME = "help";
+	private static final String DESCRIPTION =
+			"All commands belong to a service. List all services by issuing '.help services'." +
+			" Get service information by issuing '.help <service>'." +
+			" Get command information by issuing '.help <service> <command>'.";
+
 	public HelpService() {
-		super("help",
-				"All commands belong to a service. List all services by issuing '.help services'." +
-						" Get service information by issuing '.help <service>'." +
-						" Get command information by issuing '.help <service> <command>'.");
+		super(NAME, DESCRIPTION);
 	}
 
 	@Override

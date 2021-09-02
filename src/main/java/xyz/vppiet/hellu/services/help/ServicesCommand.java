@@ -15,8 +15,13 @@ import java.util.stream.Collectors;
 
 public class ServicesCommand extends CommandBase {
 
+	private static final String SERVICE = "help";
+	private static final String NAME = "services";
+	private static final String DESCRIPTION = "Lists all services.";
+	private static final CommandParameterManager PARAMS = new CommandParameterManager();
+
 	public ServicesCommand() {
-		super("help", "services", "Lists all services.", new CommandParameterManager());
+		super(SERVICE, NAME, DESCRIPTION, PARAMS);
 	}
 
 	@Override
