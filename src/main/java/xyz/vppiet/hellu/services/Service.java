@@ -6,11 +6,15 @@ import xyz.vppiet.hellu.Observer;
 import xyz.vppiet.hellu.ServiceManagedChannelMessage;
 import xyz.vppiet.hellu.ServiceManagedPrivateMessage;
 
+import java.util.Collection;
+import java.util.Optional;
 import java.util.Set;
 
 public interface Service extends Observer {
 	Service addCommand(Command c);
 	boolean containsCommand(Command c);
+	Optional<Command> getCommand(String c);
+	Collection<String> getCommandNames();
 	Set<Command> getCommands();
 	String getDescription();
 	String getHelp();

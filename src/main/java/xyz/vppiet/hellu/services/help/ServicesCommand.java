@@ -6,21 +6,17 @@ import org.kitteh.irc.client.library.event.user.PrivateMessageEvent;
 
 import xyz.vppiet.hellu.ServiceManager;
 import xyz.vppiet.hellu.services.CommandBase;
+import xyz.vppiet.hellu.services.CommandParameterManager;
 import xyz.vppiet.hellu.services.Service;
 import xyz.vppiet.hellu.services.ServicedChannelMessage;
 import xyz.vppiet.hellu.services.ServicedPrivateMessage;
 
-import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class ServicesCommand extends CommandBase {
 
-	private static final String SERVICE = "help";
-	private static final String NAME = "services";
-	private static final String DESCRIPTION = "Shows all services.";
-
 	public ServicesCommand() {
-		super(SERVICE, NAME, DESCRIPTION, new ArrayList<>());
+		super("help", "services", "Lists all services.", new CommandParameterManager());
 	}
 
 	@Override

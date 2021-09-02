@@ -10,6 +10,8 @@ import xyz.vppiet.hellu.CommandProperties;
 import xyz.vppiet.hellu.Subject;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Getter(AccessLevel.PUBLIC)
 @Log4j2
@@ -19,41 +21,66 @@ public abstract class CommandBase implements Command {
 	protected final String service;
 	protected final String name;
 	protected final String description;
-	protected final List<CommandParameter> params;
-	protected final String usageDescription;
+	protected final CommandParameterManager parameterManager;
 
-	public CommandBase(String service, String name, String description, List<CommandParameter> params) {
+	public CommandBase(String service, String name, String description,
+					   CommandParameterManager commandParameterManager) {
 		this.service = service;
 		this.name = name;
 		this.description = description;
-		this.params = params;
-		this.usageDescription = CommandProperties.getUsageDescription(this.service, this.name, this.params);
+		this.parameterManager = commandParameterManager;
+	}
+
+	@Override
+	public String getHelp() {
+		StringBuilder sb = new StringBuilder(this.getDescription());
+		sb.append(" ");
+		sb.append("Usage: ");
+		sb.append(this.getUsage());
+
+		return sb.toString();
+	}
+
+	@Override
+	public String getUsage() {
+		final StringBuilder sb = new StringBuilder(CommandProperties.SERVICE_PREFIX + this.getService() +
+				CommandProperties.COMMAND_SEPARATOR + this.name);
+		final CommandParameterManager manager = this.getParameterManager();
+		final Map<String, CommandParameter<? extends Comparable<?>>> params = manager.getParameters();
+
+		if (params.isEmpty()) return sb.toString();
+
+		final String paramUsage = params.values().stream().map(cp -> "<" + cp.getName() + ">").collect(Collectors.joining(CommandProperties.PARAM_SEPARATOR));
+		sb.append(" ");
+		sb.append(paramUsage);
+
+		return sb.toString();
 	}
 
 	@Override
 	public boolean matches(CommandInvocation ci) {
-		String service = ci.getService();
-		String command = ci.getCommand();
+		final String service = ci.getService();
+		final String command = ci.getCommand();
 
 		if (!(service.equals(this.service) && command.equals(this.name))) return false;
 
-		List<String> givenParams = ci.getParams();
+		final List<String> givenParams = ci.getParams();
 
-		return givenParams.size() == this.params.size();
+		return givenParams.size() == this.parameterManager.getParameters().size();
 	}
 
 	@Override
 	public void onNext(Subject subj, Object obj) {
 		if (obj instanceof ServicedChannelMessage) {
-			ServicedChannelMessage scm = (ServicedChannelMessage) obj;
-			CommandInvocation ci = scm.getCommandInvocation();
+			final ServicedChannelMessage scm = (ServicedChannelMessage) obj;
+			final CommandInvocation ci = scm.getCommandInvocation();
 
 			if (!this.matches(ci)) return;
 
 			this.handleServicedChannelMessage(scm);
 		} else if (obj instanceof ServicedPrivateMessage) {
-			ServicedPrivateMessage spm = (ServicedPrivateMessage) obj;
-			CommandInvocation ci = spm.getCommandInvoke();
+			final ServicedPrivateMessage spm = (ServicedPrivateMessage) obj;
+			final CommandInvocation ci = spm.getCommandInvoke();
 
 			if (!this.matches(ci)) return;
 

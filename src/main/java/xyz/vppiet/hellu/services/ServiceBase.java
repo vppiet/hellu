@@ -10,6 +10,8 @@ import xyz.vppiet.hellu.ServiceManagedChannelMessage;
 import xyz.vppiet.hellu.ServiceManagedPrivateMessage;
 import xyz.vppiet.hellu.Subject;
 
+import java.util.Collection;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -41,6 +43,22 @@ public abstract class ServiceBase extends Subject implements Service {
 	@Override
 	public boolean containsCommand(Command c) {
 		return this.getCommands().contains(c);
+	}
+
+	@Override
+	public Optional<Command> getCommand(String c) {
+		synchronized (this.observers) {
+			return this.getCommands().stream()
+					.filter(command -> command.getName().equals(c))
+					.findFirst();
+		}
+	}
+
+	@Override
+	public Collection<String> getCommandNames() {
+		synchronized (this.observers) {
+			return this.getCommands().stream().map(Command::getName).collect(Collectors.toUnmodifiableSet());
+		}
 	}
 
 	@Override

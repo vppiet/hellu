@@ -8,10 +8,9 @@ import org.kitteh.irc.client.library.event.channel.ChannelMessageEvent;
 import org.kitteh.irc.client.library.event.helper.ReplyableEvent;
 import org.kitteh.irc.client.library.event.user.PrivateMessageEvent;
 import xyz.vppiet.hellu.services.CommandBase;
+import xyz.vppiet.hellu.services.CommandParameterManager;
 import xyz.vppiet.hellu.services.ServicedChannelMessage;
 import xyz.vppiet.hellu.services.ServicedPrivateMessage;
-
-import java.util.ArrayList;
 
 @Log4j2
 @ToString(callSuper = true)
@@ -20,9 +19,10 @@ public final class HelloCommand extends CommandBase {
 	private static final String SERVICE = "misc";
 	private static final String NAME = "hello";
 	private static final String DESCRIPTION = "Says hello to a user.";
+	private static final CommandParameterManager PARAMS = new CommandParameterManager();
 
 	public HelloCommand() {
-		super(SERVICE, NAME, DESCRIPTION, new ArrayList<>());
+		super(SERVICE, NAME, DESCRIPTION, PARAMS);
 	}
 
 	@Override

@@ -9,15 +9,13 @@ import org.kitteh.irc.client.library.event.helper.ReplyableEvent;
 import org.kitteh.irc.client.library.event.user.PrivateMessageEvent;
 import org.kitteh.irc.client.library.util.CtcpUtil;
 
+import xyz.vppiet.hellu.services.CommandParameterManager;
+import xyz.vppiet.hellu.services.StringCommandParameter;
 import xyz.vppiet.hellu.services.CommandBase;
 import xyz.vppiet.hellu.CommandInvocation;
-import xyz.vppiet.hellu.services.CommandParameter;
 import xyz.vppiet.hellu.services.ServicedChannelMessage;
 import xyz.vppiet.hellu.services.ServicedPrivateMessage;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 @Log4j2
@@ -26,15 +24,9 @@ public class SlapCommand extends CommandBase {
 	private static final String SERVICE = "misc";
 	private static final String NAME = "slap";
 	private static final String DESCRIPTION = "Slaps a user.";
-	private static final List<CommandParameter> PARAMS = Collections.synchronizedList(new ArrayList<>());
-
-	static {
-		CommandParameter userParam = new CommandParameter("user", false);
-
-		synchronized (PARAMS) {
-			PARAMS.add(userParam);
-		}
-	}
+	private static final CommandParameterManager PARAMS = new CommandParameterManager(
+			new StringCommandParameter("user", "")
+	);
 
 	public SlapCommand() {
 		super(SERVICE, NAME, DESCRIPTION, PARAMS);

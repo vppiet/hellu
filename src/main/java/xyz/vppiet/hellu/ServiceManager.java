@@ -9,15 +9,15 @@ import xyz.vppiet.hellu.eventlisteners.ListenedPrivateMessage;
 import xyz.vppiet.hellu.services.Command;
 import xyz.vppiet.hellu.services.Service;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter(AccessLevel.PUBLIC)
 @Log4j2
 public final class ServiceManager extends Subject {
-
-	public static final String SERVICE_PREFIX = "";
-	public static final String COMMAND_SEPARATOR = " ";
 
 	private final Hellu hellu;
 
@@ -30,7 +30,13 @@ public final class ServiceManager extends Subject {
 		return this;
 	}
 
-	public Set<Service> getServices() {
+	public Collection<String> getServiceNames() {
+		synchronized (this.observers) {
+			return this.getServices().stream().map(Service::getName).collect(Collectors.toUnmodifiableList());
+		}
+	}
+
+	public Collection<Service> getServices() {
 		synchronized (this.observers) {
 			return this.observers.stream()
 					.filter(Service.class::isInstance)
@@ -39,11 +45,11 @@ public final class ServiceManager extends Subject {
 		}
 	}
 
-	public Set<Service> getServicesByCommand(Command c) {
+	public Optional<Service> getService(String s) {
 		synchronized (this.observers) {
 			return this.getServices().stream()
-					.filter(s -> s.containsCommand(c))
-					.collect(Collectors.toUnmodifiableSet());
+					.filter(service -> service.getName().equals(s))
+					.findFirst();
 		}
 	}
 
