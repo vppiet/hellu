@@ -6,6 +6,8 @@ import lombok.Getter;
 @Getter(AccessLevel.PACKAGE)
 final class IrcSettings {
 
+	static final String DEFAULT_NICK = "Hellu";
+
 	static final String HOST_PROPERTY = "irc.host";
 	static final String PORT_PROPERTY = "irc.port";
 	static final String NICK_PROPERTY = "irc.nick";

@@ -6,13 +6,10 @@ import lombok.extern.log4j.Log4j2;
 
 import xyz.vppiet.hellu.eventlisteners.ListenedChannelMessage;
 import xyz.vppiet.hellu.eventlisteners.ListenedPrivateMessage;
-import xyz.vppiet.hellu.services.Command;
 import xyz.vppiet.hellu.services.Service;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter(AccessLevel.PUBLIC)

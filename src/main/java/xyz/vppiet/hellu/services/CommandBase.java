@@ -80,7 +80,7 @@ public abstract class CommandBase implements Command {
 			this.handleServicedChannelMessage(scm);
 		} else if (obj instanceof ServicedPrivateMessage) {
 			final ServicedPrivateMessage spm = (ServicedPrivateMessage) obj;
-			final CommandInvocation ci = spm.getCommandInvoke();
+			final CommandInvocation ci = spm.getCommandInvocation();
 
 			if (!this.matches(ci)) return;
 

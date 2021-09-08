@@ -12,12 +12,12 @@ public class ListenedPrivateMessage {
 
 	private final PrivateMessageEvent event;
 	@ToString.Include
-	private final CommandInvocation commandInvoke;
+	private final CommandInvocation commandInvocation;
 	private final EventListener<PrivateMessageEvent> sourceListener;
 
 	public ListenedPrivateMessage(PrivateMessageEvent event, EventListener<PrivateMessageEvent> sourceListener) {
 		this.event = event;
-		this.commandInvoke = CommandInvocation.from(event);
+		this.commandInvocation = CommandInvocation.from(event);
 		this.sourceListener = sourceListener;
 	}
 }

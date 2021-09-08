@@ -1,0 +1,44 @@
+{
+   "base" : "stations",
+   "clouds" : {
+      "all" : 90
+   },
+   "cod" : 200,
+   "coord" : {
+      "lat" : 65.0124,
+      "lon" : 25.4682
+   },
+   "dt" : 1631040949,
+   "id" : 643492,
+   "main" : {
+      "feels_like" : 11.48,
+      "humidity" : 94,
+      "pressure" : 1002,
+      "temp" : 11.79,
+      "temp_max" : 12.06,
+      "temp_min" : 11.79
+   },
+   "name" : "Oulu",
+   "sys" : {
+      "country" : "FI",
+      "id" : 2003583,
+      "sunrise" : 1630984554,
+      "sunset" : 1631035008,
+      "type" : 2
+   },
+   "timezone" : 10800,
+   "visibility" : 10000,
+   "weather" : [
+      {
+         "description" : "overcast clouds",
+         "icon" : "04n",
+         "id" : 804,
+         "main" : "Clouds"
+      }
+   ],
+   "wind" : {
+      "deg" : 257,
+      "gust" : 4.02,
+      "speed" : 0.45
+   }
+}

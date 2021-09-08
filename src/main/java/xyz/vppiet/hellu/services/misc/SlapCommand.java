@@ -58,7 +58,7 @@ public class SlapCommand extends CommandBase {
 	public void handleServicedPrivateMessage(ServicedPrivateMessage spm) {
 		PrivateMessageEvent event = spm.getEvent();
 
-		CommandInvocation ci = spm.getCommandInvoke();
+		CommandInvocation ci = spm.getCommandInvocation();
 		String paramUser = ci.getParams().get(0);
 		String helluNick = spm.getSourceServiceManager().getHellu().getIrcClient().getNick();
 

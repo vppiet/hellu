@@ -92,7 +92,7 @@ public abstract class ServiceBase extends Subject implements Service {
 
 	@Override
 	public void handleServiceManagedPrivateMessage(ServiceManagedPrivateMessage smpm) {
-		CommandInvocation ci = smpm.getCommandInvoke();
+		CommandInvocation ci = smpm.getCommandInvocation();
 
 		if (ci.isMatchingService()) {
 			ReplyableEvent re = smpm.getEvent();
@@ -114,7 +114,7 @@ public abstract class ServiceBase extends Subject implements Service {
 			this.handleServiceManagedChannelMessage(smcm);
 		} else if (obj instanceof ServiceManagedPrivateMessage) {
 			ServiceManagedPrivateMessage smpm = (ServiceManagedPrivateMessage) obj;
-			CommandInvocation ci = smpm.getCommandInvoke();
+			CommandInvocation ci = smpm.getCommandInvocation();
 
 			if (!this.matches(ci)) return;
 

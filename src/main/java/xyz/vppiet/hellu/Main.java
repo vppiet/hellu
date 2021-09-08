@@ -15,13 +15,14 @@ import xyz.vppiet.hellu.services.misc.HelloCommand;
 import xyz.vppiet.hellu.services.misc.MiscService;
 import xyz.vppiet.hellu.services.misc.QuitCommand;
 import xyz.vppiet.hellu.services.misc.SlapCommand;
+import xyz.vppiet.hellu.services.weather.CurrentConditionsCommand;
+import xyz.vppiet.hellu.services.weather.WeatherService;
 
 import java.io.IOException;
 
 @Log4j2
 public class Main {
 	public static void main(String[] args) throws IOException {
-
 		// HELLU
 		HelluSettings settings = HelluSettings.load("hellu.properties");
 		Hellu hellu = new Hellu(settings);
@@ -35,6 +36,8 @@ public class Main {
 		EventListener<PrivateMessageEvent> privateMsgListener = new PrivateMessageListener();
 		privateMsgListener.addHellu(hellu);
 
+		// SERVICE SETTINGS
+		ServiceSettings serviceSettings = settings.getServiceSettings();
 
 		// SERVICE: MISC
 		Service miscService = new MiscService();
@@ -46,12 +49,17 @@ public class Main {
 		Service helpService = new HelpService();
 		helpService.addCommand(new ServicesCommand());
 
+		// SERVICE: WEATHER
+		String weatherServiceApiKey = serviceSettings.getProperty(WeatherService.API_KEY_PROPERTY);
+		Service weatherService = new WeatherService(weatherServiceApiKey);
+		weatherService.addCommand(new CurrentConditionsCommand());
 
 		// SERVICE MANAGEMENT
 		ServiceManager serviceManager = hellu.getServiceManager();
 		serviceManager
 				.addService(miscService)
-				.addService(helpService);
+				.addService(helpService)
+				.addService(weatherService);
 
 
 		// RUN
