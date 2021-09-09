@@ -13,4 +13,5 @@ public interface Command extends Observer {
 	boolean matches(CommandInvocation ci);
 	void handleServicedChannelMessage(ServicedChannelMessage scm);
 	void handleServicedPrivateMessage(ServicedPrivateMessage spm);
+	boolean parameterCountMatches(CommandInvocation ci);
 }

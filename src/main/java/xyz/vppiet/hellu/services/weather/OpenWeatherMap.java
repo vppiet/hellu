@@ -78,7 +78,7 @@ class OpenWeatherMap {
 
 				float windGust = successBody.wind().gust();
 				String formattedWindGust = String.format(Locale.ENGLISH, "%.1f", windGust);
-				reply.append("(").append(formattedWindSpeed).append(" m/s) ");
+				reply.append("(").append(formattedWindGust).append(" m/s) ");
 
 				String description = successBody.weather().get(0).description();
 				reply.append(description);

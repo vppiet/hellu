@@ -9,7 +9,6 @@ import xyz.vppiet.hellu.CommandInvocation;
 import xyz.vppiet.hellu.CommandProperties;
 import xyz.vppiet.hellu.Subject;
 
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -62,11 +61,15 @@ public abstract class CommandBase implements Command {
 		final String service = ci.getService();
 		final String command = ci.getCommand();
 
-		if (!(service.equals(this.service) && command.equals(this.name))) return false;
+		return (service.equals(this.service) && command.equals(this.name));
+	}
 
-		final List<String> givenParams = ci.getParams();
+	@Override
+	public boolean parameterCountMatches(CommandInvocation ci) {
+		final int commandParamSize = this.getParameterManager().getParameters().size();
+		final int givenParamSize = ci.getParams().size();
 
-		return givenParams.size() == this.parameterManager.getParameters().size();
+		return commandParamSize == givenParamSize;
 	}
 
 	@Override
@@ -75,30 +78,28 @@ public abstract class CommandBase implements Command {
 			final ServicedChannelMessage scm = (ServicedChannelMessage) obj;
 			final CommandInvocation ci = scm.getCommandInvocation();
 
-			if (this.getParameterManager().getParameters().size() != ci.getParams().size()) {
-				final String usage = "Usage: " + this.getUsage();
+			if (!this.matches(ci)) return;
 
+			if (!this.parameterCountMatches(ci)) {
+				final String usage = "Usage: " + this.getUsage();
 				scm.getEvent().sendReply(usage);
 
 				return;
 			}
-
-			if (!this.matches(ci)) return;
 
 			this.handleServicedChannelMessage(scm);
 		} else if (obj instanceof ServicedPrivateMessage) {
 			final ServicedPrivateMessage spm = (ServicedPrivateMessage) obj;
 			final CommandInvocation ci = spm.getCommandInvocation();
 
-			if (this.getParameterManager().getParameters().size() != ci.getParams().size()) {
-				final String usage = "Usage: " + this.getUsage();
+			if (!this.matches(ci)) return;
 
+			if (!this.parameterCountMatches(ci)) {
+				final String usage = "Usage: " + this.getUsage();
 				spm.getEvent().sendReply(usage);
 
 				return;
 			}
-
-			if (!this.matches(ci)) return;
 
 			this.handleServicedPrivateMessage(spm);
 		}
