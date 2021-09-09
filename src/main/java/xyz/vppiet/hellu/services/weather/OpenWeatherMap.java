@@ -9,6 +9,7 @@ import java.net.URISyntaxException;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -51,7 +52,6 @@ class OpenWeatherMap {
 
 				StringBuilder reply = new StringBuilder();
 
-				// Turku, FI: 3°C (4°C) 1024 hPa 53% clear sky
 				String name = successBody.name();
 				reply.append(name).append(", ");
 
@@ -59,16 +59,26 @@ class OpenWeatherMap {
 				reply.append(country).append(": ");
 
 				float temp = successBody.main().temp();
-				reply.append(temp).append("°C ");
+				String formattedTemp = String.format(Locale.ENGLISH, "%.1f", temp);
+				reply.append(formattedTemp).append("°C ");
 
 				float feelsLike = successBody.main().feels_like();
-				reply.append("(").append(feelsLike).append("°C) ");
+				String formattedFeelsLike = String.format(Locale.ENGLISH, "%.1f", feelsLike);
+				reply.append("(").append(formattedFeelsLike).append("°C) ");
 
 				int pressure = successBody.main().pressure();
 				reply.append(pressure).append(" hPa ");
 
 				int humidity = successBody.main().humidity();
 				reply.append(humidity).append("% ");
+
+				float windSpeed = successBody.wind().speed();
+				String formattedWindSpeed = String.format(Locale.ENGLISH, "%.1f", windSpeed);
+				reply.append(formattedWindSpeed).append(" m/s ");
+
+				float windGust = successBody.wind().gust();
+				String formattedWindGust = String.format(Locale.ENGLISH, "%.1f", windGust);
+				reply.append("(").append(formattedWindSpeed).append(" m/s) ");
 
 				String description = successBody.weather().get(0).description();
 				reply.append(description);

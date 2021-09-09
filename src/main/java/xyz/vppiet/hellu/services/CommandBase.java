@@ -75,12 +75,28 @@ public abstract class CommandBase implements Command {
 			final ServicedChannelMessage scm = (ServicedChannelMessage) obj;
 			final CommandInvocation ci = scm.getCommandInvocation();
 
+			if (this.getParameterManager().getParameters().size() != ci.getParams().size()) {
+				final String usage = "Usage: " + this.getUsage();
+
+				scm.getEvent().sendReply(usage);
+
+				return;
+			}
+
 			if (!this.matches(ci)) return;
 
 			this.handleServicedChannelMessage(scm);
 		} else if (obj instanceof ServicedPrivateMessage) {
 			final ServicedPrivateMessage spm = (ServicedPrivateMessage) obj;
 			final CommandInvocation ci = spm.getCommandInvocation();
+
+			if (this.getParameterManager().getParameters().size() != ci.getParams().size()) {
+				final String usage = "Usage: " + this.getUsage();
+
+				spm.getEvent().sendReply(usage);
+
+				return;
+			}
 
 			if (!this.matches(ci)) return;
 

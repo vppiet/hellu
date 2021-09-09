@@ -1,0 +1,311 @@
+{
+   "errors" : [],
+   "get" : "leagues",
+   "paging" : {
+      "current" : 1,
+      "total" : 1
+   },
+   "parameters" : {
+      "code" : "FI",
+      "current" : "true"
+   },
+   "response" : [
+      {
+         "country" : {
+            "code" : "FI",
+            "flag" : "https://media.api-sports.io/flags/fi.svg",
+            "name" : "Finland"
+         },
+         "league" : {
+            "id" : 700,
+            "logo" : "https://media.api-sports.io/football/leagues/700.png",
+            "name" : "Kakkosen Cup",
+            "type" : "Cup"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : false,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2021-10-16",
+               "start" : "2021-01-24",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "FI",
+            "flag" : "https://media.api-sports.io/flags/fi.svg",
+            "name" : "Finland"
+         },
+         "league" : {
+            "id" : 246,
+            "logo" : "https://media.api-sports.io/football/leagues/246.png",
+            "name" : "Suomen Cup",
+            "type" : "Cup"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : true,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : true,
+                  "top_cards" : true,
+                  "top_scorers" : true
+               },
+               "current" : true,
+               "end" : "2021-05-08",
+               "start" : "2021-02-06",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "FI",
+            "flag" : "https://media.api-sports.io/flags/fi.svg",
+            "name" : "Finland"
+         },
+         "league" : {
+            "id" : 244,
+            "logo" : "https://media.api-sports.io/football/leagues/244.png",
+            "name" : "Veikkausliiga",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : true,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : true,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : true,
+                  "top_cards" : true,
+                  "top_scorers" : true
+               },
+               "current" : true,
+               "end" : "2021-09-26",
+               "start" : "2021-04-24",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "FI",
+            "flag" : "https://media.api-sports.io/flags/fi.svg",
+            "name" : "Finland"
+         },
+         "league" : {
+            "id" : 640,
+            "logo" : "https://media.api-sports.io/football/leagues/640.png",
+            "name" : "Naisten Liiga",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2021-10-09",
+               "start" : "2021-04-17",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "FI",
+            "flag" : "https://media.api-sports.io/flags/fi.svg",
+            "name" : "Finland"
+         },
+         "league" : {
+            "id" : 245,
+            "logo" : "https://media.api-sports.io/football/leagues/245.png",
+            "name" : "Ykkonen",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : true,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : true,
+                  "top_cards" : true,
+                  "top_scorers" : true
+               },
+               "current" : true,
+               "end" : "2021-09-19",
+               "start" : "2021-05-05",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "FI",
+            "flag" : "https://media.api-sports.io/flags/fi.svg",
+            "name" : "Finland"
+         },
+         "league" : {
+            "id" : 247,
+            "logo" : "https://media.api-sports.io/football/leagues/247.png",
+            "name" : "Kakkonen - Lohko A",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : true,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : true,
+                  "top_cards" : true,
+                  "top_scorers" : true
+               },
+               "current" : true,
+               "end" : "2021-10-23",
+               "start" : "2021-05-29",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "FI",
+            "flag" : "https://media.api-sports.io/flags/fi.svg",
+            "name" : "Finland"
+         },
+         "league" : {
+            "id" : 249,
+            "logo" : "https://media.api-sports.io/football/leagues/249.png",
+            "name" : "Kakkonen - Lohko C",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : true,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : true,
+                  "top_cards" : true,
+                  "top_scorers" : true
+               },
+               "current" : true,
+               "end" : "2021-10-23",
+               "start" : "2021-05-07",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "FI",
+            "flag" : "https://media.api-sports.io/flags/fi.svg",
+            "name" : "Finland"
+         },
+         "league" : {
+            "id" : 248,
+            "logo" : "https://media.api-sports.io/football/leagues/248.png",
+            "name" : "Kakkonen - Lohko B",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : true,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : true,
+                  "top_cards" : true,
+                  "top_scorers" : true
+               },
+               "current" : true,
+               "end" : "2021-10-23",
+               "start" : "2021-05-29",
+               "year" : 2021
+            }
+         ]
+      }
+   ],
+   "results" : 8
+}

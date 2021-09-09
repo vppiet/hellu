@@ -1,0 +1,16 @@
+{
+   "errors" : {
+      "current" : "The Current field cannot be used with the Search field."
+   },
+   "get" : "leagues",
+   "paging" : {
+      "current" : 1,
+      "total" : 1
+   },
+   "parameters" : {
+      "current" : "true",
+      "search" : "Veikkausliiga"
+   },
+   "response" : [],
+   "results" : 0
+}

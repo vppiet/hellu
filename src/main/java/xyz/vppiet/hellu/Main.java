@@ -9,6 +9,8 @@ import xyz.vppiet.hellu.eventlisteners.ChannelMessageListener;
 import xyz.vppiet.hellu.eventlisteners.EventListener;
 import xyz.vppiet.hellu.eventlisteners.PrivateMessageListener;
 import xyz.vppiet.hellu.services.Service;
+import xyz.vppiet.hellu.services.football.FootballService;
+import xyz.vppiet.hellu.services.football.LiveCommand;
 import xyz.vppiet.hellu.services.help.HelpService;
 import xyz.vppiet.hellu.services.help.ServicesCommand;
 import xyz.vppiet.hellu.services.misc.HelloCommand;
@@ -53,6 +55,11 @@ public class Main {
 		String weatherServiceApiKey = serviceSettings.getProperty(WeatherService.API_KEY_PROPERTY);
 		Service weatherService = new WeatherService(weatherServiceApiKey);
 		weatherService.addCommand(new CurrentConditionsCommand());
+
+		// SERVICE: FOOTBALL
+		String footballServiceApiKey = serviceSettings.getProperty(FootballService.API_KEY_PROPERTY);
+		Service footballService = new FootballService(footballServiceApiKey);
+		footballService.addCommand(new LiveCommand());
 
 		// SERVICE MANAGEMENT
 		ServiceManager serviceManager = hellu.getServiceManager();
