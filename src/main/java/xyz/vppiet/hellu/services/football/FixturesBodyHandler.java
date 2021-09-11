@@ -13,7 +13,7 @@ import java.net.http.HttpResponse.ResponseInfo;
 import java.nio.charset.StandardCharsets;
 
 @Log4j2
-final class LeaguesBodyHandler implements BodyHandler<JsonModel> {
+public class FixturesBodyHandler implements BodyHandler<JsonModel> {
 
 	@Override
 	public BodySubscriber<JsonModel> apply(ResponseInfo responseInfo) {
@@ -23,7 +23,7 @@ final class LeaguesBodyHandler implements BodyHandler<JsonModel> {
 
 		switch (statusCode) {
 			case HttpURLConnection.HTTP_OK:
-				return ofJson(LeaguesModel.class);
+				return ofJson(FixturesModel.class);
 			default:
 				return ofJson(EmptyJson.class);
 		}

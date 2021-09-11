@@ -21,6 +21,7 @@ final class ApiFootball {
 	static final String SCHEME = "https";
 	static final String HOST = "v3.football.api-sports.io";
 	static final String LEAGUES_PATH = "/leagues";
+	static final String FIXTURES_PATH = "/fixtures";
 
 	private final String apiKey;
 
@@ -41,10 +42,47 @@ final class ApiFootball {
 			HttpRequest request = HttpController.createGetRequest(uri, headers);
 
 			JsonModel body = HttpController.CLIENT.sendAsync(request, new LeaguesBodyHandler())
-					.thenApply(HttpResponse::body).get(60, TimeUnit.SECONDS);
+					.thenApply(HttpResponse::body).get(30, TimeUnit.SECONDS);
 
 			if (body instanceof LeaguesModel) {
 				LeaguesModel successBody = (LeaguesModel) body;
+				return Optional.of(successBody);
+			}
+
+			return Optional.empty();
+		} catch (URISyntaxException ex) {
+			log.error("Exception thrown during URI forming", ex);
+
+			return Optional.empty();
+		} catch (TimeoutException ex) {
+			log.error("HTTP request timed out", ex);
+
+			return Optional.empty();
+		} catch (ExecutionException | InterruptedException ex) {
+			log.error("Execution of the HTTP request was interrupted", ex);
+
+			return Optional.empty();
+		}
+	}
+
+	Optional<FixturesModel> getLiveFixturesByLeague(int league) {
+		String query = "live=all&league=" + league;
+
+		try {
+			URI uri = new URI(SCHEME, null, HOST, -1, FIXTURES_PATH, query, null);
+
+			Map<String, String> headers = new HashMap<>();
+			headers.put("Accepts", "application/json");
+			headers.put("x-apisports-key", this.apiKey);
+
+			HttpRequest request = HttpController.createGetRequest(uri, headers);
+
+			JsonModel body = HttpController.CLIENT.sendAsync(request, new FixturesBodyHandler())
+					.thenApply(HttpResponse::body).get(30, TimeUnit.SECONDS);
+
+			if (body instanceof FixturesModel) {
+				FixturesModel successBody = (FixturesModel) body;
+
 				return Optional.of(successBody);
 			}
 

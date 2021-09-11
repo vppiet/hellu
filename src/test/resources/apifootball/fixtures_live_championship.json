@@ -1,0 +1,84 @@
+{
+   "errors" : [],
+   "get" : "fixtures",
+   "paging" : {
+      "current" : 1,
+      "total" : 1
+   },
+   "parameters" : {
+      "league" : "40",
+      "live" : "all"
+   },
+   "response" : [
+      {
+         "events" : [],
+         "fixture" : {
+            "date" : "2021-09-10T19:00:00+00:00",
+            "id" : 716857,
+            "periods" : {
+               "first" : 1631300400,
+               "second" : null
+            },
+            "referee" : "Gavin Ward, England",
+            "status" : {
+               "elapsed" : 6,
+               "long" : "First Half",
+               "short" : "1H"
+            },
+            "timestamp" : 1631300400,
+            "timezone" : "UTC",
+            "venue" : {
+               "city" : "Birmingham",
+               "id" : 499,
+               "name" : "St Andrew's Trillion Trophy Stadium"
+            }
+         },
+         "goals" : {
+            "away" : 0,
+            "home" : 0
+         },
+         "league" : {
+            "country" : "England",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "id" : 40,
+            "logo" : "https://media.api-sports.io/football/leagues/40.png",
+            "name" : "Championship",
+            "round" : "Regular Season - 6",
+            "season" : 2021
+         },
+         "score" : {
+            "extratime" : {
+               "away" : null,
+               "home" : null
+            },
+            "fulltime" : {
+               "away" : null,
+               "home" : null
+            },
+            "halftime" : {
+               "away" : 0,
+               "home" : 0
+            },
+            "penalty" : {
+               "away" : null,
+               "home" : null
+            }
+         },
+         "teams" : {
+            "away" : {
+               "id" : 69,
+               "logo" : "https://media.api-sports.io/football/teams/69.png",
+               "name" : "Derby",
+               "winner" : null
+            },
+            "home" : {
+               "id" : 54,
+               "logo" : "https://media.api-sports.io/football/teams/54.png",
+               "name" : "Birmingham",
+               "winner" : null
+            }
+         }
+      }
+   ],
+   "results" : 1
+}

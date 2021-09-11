@@ -10,6 +10,7 @@ import xyz.vppiet.hellu.eventlisteners.EventListener;
 import xyz.vppiet.hellu.eventlisteners.PrivateMessageListener;
 import xyz.vppiet.hellu.services.Service;
 import xyz.vppiet.hellu.services.football.FootballService;
+import xyz.vppiet.hellu.services.football.LeaguesCommand;
 import xyz.vppiet.hellu.services.football.LiveCommand;
 import xyz.vppiet.hellu.services.help.HelpService;
 import xyz.vppiet.hellu.services.help.ServicesCommand;
@@ -28,7 +29,6 @@ public class Main {
 		// HELLU
 		HelluSettings settings = HelluSettings.load("hellu.properties");
 		Hellu hellu = new Hellu(settings);
-
 
 		// LISTENER: CHANNEL MESSAGE EVENT
 		EventListener<ChannelMessageEvent> channelMsgListener = new ChannelMessageListener();
@@ -58,7 +58,9 @@ public class Main {
 
 		// SERVICE: FOOTBALL
 		String footballServiceApiKey = serviceSettings.getProperty(FootballService.API_KEY_PROPERTY);
-		Service footballService = new FootballService(footballServiceApiKey);
+		FootballService footballService = new FootballService(footballServiceApiKey);
+		footballService.loadLeaguesByCountry("FI");
+		footballService.loadLeaguesByCountry("GB");
 		footballService.addCommand(new LiveCommand());
 
 		// SERVICE MANAGEMENT
@@ -66,11 +68,12 @@ public class Main {
 		serviceManager
 				.addService(miscService)
 				.addService(helpService)
-				.addService(weatherService);
-
+				.addService(weatherService)
+				.addService(footballService);
 
 		// RUN
 		hellu.addChannel("#hellu");
+		hellu.addChannel("#valioliiga");
 		hellu.connect();
 	}
 }

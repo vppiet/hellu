@@ -27,4 +27,16 @@ class ApiFootballTest {
 			}
 		}
 	}
+
+	@Test
+	void getLiveFixturesByLeague() {
+		ApiFootball apiFootball = new ApiFootball("apiKey");
+		Optional<FixturesModel> optFixtures = apiFootball.getLiveFixturesByLeague(40);
+
+		if (optFixtures.isPresent()) {
+			FixturesModel fixtures = optFixtures.get();
+
+			log.info(fixtures);
+		}
+	}
 }

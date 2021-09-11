@@ -24,9 +24,9 @@ public class CurrentConditionsBodyHandler implements BodyHandler<JsonModel> {
 
 		switch (statusCode) {
 			case HttpURLConnection.HTTP_NOT_FOUND:
-				return ofJson(AutoValue_CurrentConditionsNotFoundModel.class);
+				return ofJson(CurrentConditionsNotFoundModel.class);
 			case HttpURLConnection.HTTP_OK:
-				return ofJson(AutoValue_CurrentConditionsSuccessModel.class);
+				return ofJson(CurrentConditionsSuccessModel.class);
 			default:
 				return ofJson(EmptyJson.class);
 		}

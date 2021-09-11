@@ -1,0 +1,1850 @@
+{
+   "errors" : [],
+   "get" : "leagues",
+   "paging" : {
+      "current" : 1,
+      "total" : 1
+   },
+   "parameters" : {
+      "code" : "GB",
+      "current" : "true"
+   },
+   "response" : [
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 49,
+            "logo" : "https://media.api-sports.io/football/leagues/49.png",
+            "name" : "National League - Play-offs",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2019-05-11",
+               "start" : "2019-05-01",
+               "year" : 2018
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 44,
+            "logo" : "https://media.api-sports.io/football/leagues/44.png",
+            "name" : "FA WSL",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2021-05-09",
+               "start" : "2020-09-05",
+               "year" : 2020
+            },
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-05-08",
+               "start" : "2021-09-03",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "Northern-Ireland"
+         },
+         "league" : {
+            "id" : 757,
+            "logo" : "https://media.api-sports.io/football/leagues/757.png",
+            "name" : "Irish Cup",
+            "type" : "Cup"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : true,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : true,
+                  "top_cards" : true,
+                  "top_scorers" : true
+               },
+               "current" : true,
+               "end" : "2021-05-21",
+               "start" : "2021-04-27",
+               "year" : 2020
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "Scotland"
+         },
+         "league" : {
+            "id" : 181,
+            "logo" : "https://media.api-sports.io/football/leagues/181.png",
+            "name" : "FA Cup",
+            "type" : "Cup"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : true,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2021-05-22",
+               "start" : "2020-11-28",
+               "year" : 2020
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 698,
+            "logo" : "https://media.api-sports.io/football/leagues/698.png",
+            "name" : "FA Women's Cup",
+            "type" : "Cup"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : false,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2021-09-29",
+               "start" : "2020-12-13",
+               "year" : 2020
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 697,
+            "logo" : "https://media.api-sports.io/football/leagues/697.png",
+            "name" : "WSL Cup",
+            "type" : "Cup"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2021-03-14",
+               "start" : "2020-10-07",
+               "year" : 2020
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 55,
+            "logo" : "https://media.api-sports.io/football/leagues/55.png",
+            "name" : "Non League Div One - Northern South",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : false,
+                     "lineups" : false,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : true,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : true,
+                  "top_cards" : true,
+                  "top_scorers" : true
+               },
+               "current" : true,
+               "end" : "2021-05-08",
+               "start" : "2020-09-19",
+               "year" : 2020
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 54,
+            "logo" : "https://media.api-sports.io/football/leagues/54.png",
+            "name" : "Non League Div One - Northern North",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : false,
+                     "lineups" : false,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : true,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : true,
+                  "top_cards" : true,
+                  "top_scorers" : true
+               },
+               "current" : true,
+               "end" : "2021-05-08",
+               "start" : "2020-09-19",
+               "year" : 2020
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 670,
+            "logo" : "https://media.api-sports.io/football/leagues/670.png",
+            "name" : "Community Shield Women",
+            "type" : "Cup"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2020-08-29",
+               "start" : "2020-08-29",
+               "year" : 2020
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "Northern-Ireland"
+         },
+         "league" : {
+            "id" : 407,
+            "logo" : "https://media.api-sports.io/football/leagues/407.png",
+            "name" : "Championship",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : false,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-03-26",
+               "start" : "2021-08-07",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "Scotland"
+         },
+         "league" : {
+            "id" : 182,
+            "logo" : "https://media.api-sports.io/football/leagues/182.png",
+            "name" : "Challenge Cup",
+            "type" : "Cup"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : true,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : true,
+                  "top_cards" : true,
+                  "top_scorers" : true
+               },
+               "current" : true,
+               "end" : "2021-10-09",
+               "start" : "2021-08-10",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "Northern-Ireland"
+         },
+         "league" : {
+            "id" : 559,
+            "logo" : "https://media.api-sports.io/football/leagues/559.png",
+            "name" : "League Cup",
+            "type" : "Cup"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : false,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2021-09-15",
+               "start" : "2021-07-31",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 45,
+            "logo" : "https://media.api-sports.io/football/leagues/45.png",
+            "name" : "FA Cup",
+            "type" : "Cup"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : false,
+                     "lineups" : false,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : true,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : true,
+                  "top_cards" : true,
+                  "top_scorers" : true
+               },
+               "current" : true,
+               "end" : "2021-09-18",
+               "start" : "2021-08-06",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 46,
+            "logo" : "https://media.api-sports.io/football/leagues/46.png",
+            "name" : "EFL Trophy",
+            "type" : "Cup"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : true,
+                     "statistics_players" : true
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2021-11-16",
+               "start" : "2021-08-24",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 699,
+            "logo" : "https://media.api-sports.io/football/leagues/699.png",
+            "name" : "Women's Championship",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-05-01",
+               "start" : "2021-08-29",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 52,
+            "logo" : "https://media.api-sports.io/football/leagues/52.png",
+            "name" : "Non League Div One - Isthmian North",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : false,
+                     "lineups" : false,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-04-23",
+               "start" : "2021-08-14",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 53,
+            "logo" : "https://media.api-sports.io/football/leagues/53.png",
+            "name" : "Non League Div One - Isthmian South",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : false,
+                     "lineups" : false,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-04-23",
+               "start" : "2021-08-14",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 57,
+            "logo" : "https://media.api-sports.io/football/leagues/57.png",
+            "name" : "Non League Div One - Southern SW",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : false,
+                     "lineups" : false,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-04-23",
+               "start" : "2021-08-14",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 56,
+            "logo" : "https://media.api-sports.io/football/leagues/56.png",
+            "name" : "Non League Div One - Southern Central",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : false,
+                     "lineups" : false,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-04-23",
+               "start" : "2021-08-14",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "Wales"
+         },
+         "league" : {
+            "id" : 112,
+            "logo" : "https://media.api-sports.io/football/leagues/112.png",
+            "name" : "Welsh Cup",
+            "type" : "Cup"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : false,
+                     "lineups" : false,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2021-09-24",
+               "start" : "2021-08-13",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 702,
+            "logo" : "https://media.api-sports.io/football/leagues/702.png",
+            "name" : "Premier League 2 Division One",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-05-02",
+               "start" : "2021-08-13",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 696,
+            "logo" : "https://media.api-sports.io/football/leagues/696.png",
+            "name" : "U18 Premier League - South",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-05-07",
+               "start" : "2021-08-14",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 695,
+            "logo" : "https://media.api-sports.io/football/leagues/695.png",
+            "name" : "U18 Premier League - North",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-05-07",
+               "start" : "2021-08-14",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 58,
+            "logo" : "https://media.api-sports.io/football/leagues/58.png",
+            "name" : "Non League Premier - Isthmian",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : false,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-04-23",
+               "start" : "2021-08-14",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 59,
+            "logo" : "https://media.api-sports.io/football/leagues/59.png",
+            "name" : "Non League Premier - Northern",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : false,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-04-23",
+               "start" : "2021-08-14",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 60,
+            "logo" : "https://media.api-sports.io/football/leagues/60.png",
+            "name" : "Non League Premier - Southern",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : false,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-04-23",
+               "start" : "2021-08-14",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 703,
+            "logo" : "https://media.api-sports.io/football/leagues/703.png",
+            "name" : "Professional Development League",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : false,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-05-03",
+               "start" : "2021-08-16",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 47,
+            "logo" : "https://media.api-sports.io/football/leagues/47.png",
+            "name" : "FA Trophy",
+            "type" : "Cup"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : false,
+                     "lineups" : false,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2021-10-09",
+               "start" : "2021-09-25",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "Wales"
+         },
+         "league" : {
+            "id" : 738,
+            "logo" : "https://media.api-sports.io/football/leagues/738.png",
+            "name" : "League Cup",
+            "type" : "Cup"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : false,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2021-09-21",
+               "start" : "2021-07-16",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "Scotland"
+         },
+         "league" : {
+            "id" : 185,
+            "logo" : "https://media.api-sports.io/football/leagues/185.png",
+            "name" : "League Cup",
+            "type" : "Cup"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : true,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : true,
+                  "top_cards" : true,
+                  "top_scorers" : true
+               },
+               "current" : true,
+               "end" : "2021-09-22",
+               "start" : "2021-07-09",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 528,
+            "logo" : "https://media.api-sports.io/football/leagues/528.png",
+            "name" : "Community Shield",
+            "type" : "Cup"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : true,
+                     "statistics_players" : true
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2021-08-07",
+               "start" : "2021-08-07",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "Wales"
+         },
+         "league" : {
+            "id" : 111,
+            "logo" : "https://media.api-sports.io/football/leagues/111.png",
+            "name" : "Division 1",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : false,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-04-23",
+               "start" : "2021-07-23",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "Scotland"
+         },
+         "league" : {
+            "id" : 179,
+            "logo" : "https://media.api-sports.io/football/leagues/179.png",
+            "name" : "Premiership",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : true,
+                     "statistics_players" : true
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : true,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : true,
+                  "top_cards" : true,
+                  "top_scorers" : true
+               },
+               "current" : true,
+               "end" : "2022-04-09",
+               "start" : "2021-07-31",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "Scotland"
+         },
+         "league" : {
+            "id" : 184,
+            "logo" : "https://media.api-sports.io/football/leagues/184.png",
+            "name" : "League Two",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-04-30",
+               "start" : "2021-07-31",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 39,
+            "logo" : "https://media.api-sports.io/football/leagues/39.png",
+            "name" : "Premier League",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : true,
+                     "statistics_players" : true
+                  },
+                  "injuries" : true,
+                  "odds" : true,
+                  "players" : true,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : true,
+                  "top_cards" : true,
+                  "top_scorers" : true
+               },
+               "current" : true,
+               "end" : "2022-05-22",
+               "start" : "2021-08-13",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "Scotland"
+         },
+         "league" : {
+            "id" : 183,
+            "logo" : "https://media.api-sports.io/football/leagues/183.png",
+            "name" : "League One",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-04-30",
+               "start" : "2021-07-31",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "Scotland"
+         },
+         "league" : {
+            "id" : 180,
+            "logo" : "https://media.api-sports.io/football/leagues/180.png",
+            "name" : "Championship",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : true,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : true,
+                  "top_cards" : true,
+                  "top_scorers" : true
+               },
+               "current" : true,
+               "end" : "2022-04-29",
+               "start" : "2021-07-31",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 41,
+            "logo" : "https://media.api-sports.io/football/leagues/41.png",
+            "name" : "League One",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : true,
+                     "statistics_players" : true
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : true,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : true,
+                  "top_cards" : true,
+                  "top_scorers" : true
+               },
+               "current" : true,
+               "end" : "2022-04-30",
+               "start" : "2021-08-07",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 48,
+            "logo" : "https://media.api-sports.io/football/leagues/48.png",
+            "name" : "League Cup",
+            "type" : "Cup"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : true,
+                     "statistics_players" : true
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : true,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : true,
+                  "top_cards" : true,
+                  "top_scorers" : true
+               },
+               "current" : true,
+               "end" : "2021-09-21",
+               "start" : "2021-07-31",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 51,
+            "logo" : "https://media.api-sports.io/football/leagues/51.png",
+            "name" : "National League - South",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-05-07",
+               "start" : "2021-08-14",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 40,
+            "logo" : "https://media.api-sports.io/football/leagues/40.png",
+            "name" : "Championship",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : true,
+                     "statistics_players" : true
+                  },
+                  "injuries" : true,
+                  "odds" : true,
+                  "players" : true,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : true,
+                  "top_cards" : true,
+                  "top_scorers" : true
+               },
+               "current" : true,
+               "end" : "2022-05-07",
+               "start" : "2021-08-06",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 42,
+            "logo" : "https://media.api-sports.io/football/leagues/42.png",
+            "name" : "League Two",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : true,
+                     "statistics_players" : true
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : true,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : true,
+                  "top_cards" : true,
+                  "top_scorers" : true
+               },
+               "current" : true,
+               "end" : "2022-05-07",
+               "start" : "2021-08-07",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "Wales"
+         },
+         "league" : {
+            "id" : 110,
+            "logo" : "https://media.api-sports.io/football/leagues/110.png",
+            "name" : "Premier",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-02-12",
+               "start" : "2021-08-13",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "Scotland"
+         },
+         "league" : {
+            "id" : 731,
+            "logo" : "https://media.api-sports.io/football/leagues/731.png",
+            "name" : "Football League - Lowland League",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : false,
+                     "lineups" : false,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-04-16",
+               "start" : "2021-07-17",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "Scotland"
+         },
+         "league" : {
+            "id" : 730,
+            "logo" : "https://media.api-sports.io/football/leagues/730.png",
+            "name" : "Football League - Highland League",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : false,
+                     "lineups" : false,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-04-16",
+               "start" : "2021-07-24",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "Northern-Ireland"
+         },
+         "league" : {
+            "id" : 561,
+            "logo" : "https://media.api-sports.io/football/leagues/561.png",
+            "name" : "Premier Intermediate League",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : false,
+                     "lineups" : false,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : false,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : false,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-04-16",
+               "start" : "2021-08-17",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 43,
+            "logo" : "https://media.api-sports.io/football/leagues/43.png",
+            "name" : "National League",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-05-15",
+               "start" : "2021-08-21",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "Northern-Ireland"
+         },
+         "league" : {
+            "id" : 408,
+            "logo" : "https://media.api-sports.io/football/leagues/408.png",
+            "name" : "Premiership",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-03-26",
+               "start" : "2021-08-27",
+               "year" : 2021
+            }
+         ]
+      },
+      {
+         "country" : {
+            "code" : "GB",
+            "flag" : "https://media.api-sports.io/flags/gb.svg",
+            "name" : "England"
+         },
+         "league" : {
+            "id" : 50,
+            "logo" : "https://media.api-sports.io/football/leagues/50.png",
+            "name" : "National League - North",
+            "type" : "League"
+         },
+         "seasons" : [
+            {
+               "coverage" : {
+                  "fixtures" : {
+                     "events" : true,
+                     "lineups" : true,
+                     "statistics_fixtures" : false,
+                     "statistics_players" : false
+                  },
+                  "injuries" : false,
+                  "odds" : true,
+                  "players" : false,
+                  "predictions" : true,
+                  "standings" : true,
+                  "top_assists" : false,
+                  "top_cards" : false,
+                  "top_scorers" : false
+               },
+               "current" : true,
+               "end" : "2022-05-07",
+               "start" : "2021-08-14",
+               "year" : 2021
+            }
+         ]
+      }
+   ],
+   "results" : 49
+}
