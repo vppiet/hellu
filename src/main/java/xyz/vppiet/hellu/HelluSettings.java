@@ -6,8 +6,6 @@ import lombok.extern.log4j.Log4j2;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -16,13 +14,9 @@ import java.util.Properties;
 final class HelluSettings {
 
 	private final IrcSettings ircSettings;
-	private final DatabaseSettings databaseSettings;
-	private final ServiceSettings serviceSettings;
 
-	HelluSettings(String host, int port, String nick, boolean debug, String dbUrl, Map<String, String> serviceSettings) {
+	HelluSettings(String host, int port, String nick, boolean debug) {
 		this.ircSettings = new IrcSettings(host, port, nick, debug);
-		this.databaseSettings = new DatabaseSettings(dbUrl);
-		this.serviceSettings = new ServiceSettings(serviceSettings);
 	}
 
 	static HelluSettings load(String path) throws IOException {
@@ -36,20 +30,7 @@ final class HelluSettings {
 		final String nick = parseStringPropertyOrDefault(props, IrcSettings.NICK_PROPERTY, IrcSettings.DEFAULT_NICK);
 		final boolean debug = parseBooleanPropertyOrDefault(props, IrcSettings.DEBUG_PROPERTY, false);
 
-		final String dbUrl = parseStringPropertyOrDefault(props, DatabaseSettings.URL_PROPERTY,
-				DatabaseSettings.DEFAULT_URL);
-
-		Map<String, String> serviceSettingMapping = new HashMap<>();
-
-		props.keySet().stream()
-				.map(k -> (String) k)
-				.filter(k -> k.startsWith(ServiceSettings.PROPERTY_PREFIX))
-				.forEach(k -> {
-					String value = props.getProperty(k);
-					serviceSettingMapping.put(k, value);
-				});
-
-		return new HelluSettings(host, port, nick, debug, dbUrl, serviceSettingMapping);
+		return new HelluSettings(host, port, nick, debug);
 	}
 
 	private static boolean parseBooleanProperty(Properties props, String property) {

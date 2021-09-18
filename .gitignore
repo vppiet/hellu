@@ -9,3 +9,7 @@
 
 # Configuration file of IRC client and HTTP APIs
 /hellu.properties
+
+# Database file
+/hellu.db
+

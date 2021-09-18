@@ -1,6 +1,6 @@
 # Hellu
 
-*Insecure, static, and thread-unsafe IRC bot implementation*
+*Unsecure, unscalable, and thread-unsafe IRC bot implementation*
 
 ## Motivation
 
@@ -23,6 +23,8 @@ The implementation is built around [Kitteh IRC Client Library (KICL)](https://ki
 manages the IRC connection and messaging. By providing message handlers, the library can listen to specific commands
 supplied by the users. Handlers are invoked asynchronously.
 
+Every command belongs to a service which in turn is registered to the main object (Hellu).
+
 ## User Interface
 
 Hellu has four command layers:
@@ -34,3 +36,57 @@ Hellu has four command layers:
 
 For example, if a service identifies itself as `misc` and its command `hello` has no parameters, a valid input would
 be `.misc hello` for triggering the message handler.
+
+## Database Schema
+
+`Primary key`
+*Foreign key*
+
+### footballcountry
+
+| `code` | name |
+| --- | --- |
+| TEXT | TEXT |
+| DK | Denmark
+
+```
+CREATE TABLE IF NOT EXISTS footballcountry(
+	code TEXT PRIMARY KEY CONSTRAINT countrycode_length_and_upper CHECK (length(code) == 2 AND code == upper(code)),
+	name TEXT
+);
+```
+
+### footballseason
+
+| id | name | type | countrycode | year | current | start | end |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| INTEGER | TEXT | TEXT | *footballcountry.code* | INTEGER | BOOLEAN | TEXT | TEXT |
+| 4     | Euro Championship |  Cup | null | 2008 | false | 2008-06-07 | 2008-06-29
+
+```
+CREATE TABLE IF NOT EXISTS footballseason(
+	id INTEGER PRIMARY KEY NOT NULL CHECK (id > 0),
+	name TEXT NOT NULL,
+	type TEXT NOT NULL,
+	countrycode TEXT,
+	year INTEGER NOT NULL CHECK (year > 1900),
+	current BOOLEAN NOT NULL,
+	start TEXT NOT NULL CONSTRAINT valid_date CHECK (start IS date(start, '+0 days')),
+	end TEXT NOT NULL CONSTRAINT valid_date CHECK (end IS date(end, '+0 days')),
+	FOREIGN KEY(countrycode) REFERENCES footballcountry(code)
+);
+```
+
+### footballmeta
+
+| resource | updated |
+| --- | --- |
+| `TEXT` | TEXT |
+| footballcountry | 2021-17-09 |
+
+```
+CREATE TABLE IF NOT EXISTS footballmeta(
+	resource TEXT PRIMARY KEY NOT NULL,
+	updated TEXT NOT NULL CONSTRAINT valid_datetime CHECK (updated IS datetime(updated, '+0 seconds'))
+);
+```

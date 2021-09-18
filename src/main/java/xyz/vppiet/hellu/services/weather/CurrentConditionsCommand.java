@@ -1,6 +1,5 @@
 package xyz.vppiet.hellu.services.weather;
 
-import xyz.vppiet.hellu.CommandInvocation;
 import xyz.vppiet.hellu.services.CommandBase;
 import xyz.vppiet.hellu.services.CommandParameterManager;
 import xyz.vppiet.hellu.services.Service;
@@ -29,7 +28,7 @@ public class CurrentConditionsCommand extends CommandBase {
 
 		WeatherService weatherService = (WeatherService) sourceService;
 		String city = scm.getCommandInvocation().getParams().get(0);
-		String weather = weatherService.getOpenWeatherMap().getCurrentConditionsByCity(city);
+		String weather = weatherService.getOpenWeatherMap().getCurrentConditionsByCityFormatted(city);
 
 		scm.getEvent().sendReply(weather);
 	}
@@ -42,7 +41,7 @@ public class CurrentConditionsCommand extends CommandBase {
 
 		WeatherService weatherService = (WeatherService) sourceService;
 		String city = spm.getCommandInvocation().getParams().get(0);
-		String weather = weatherService.getOpenWeatherMap().getCurrentConditionsByCity(city);
+		String weather = weatherService.getOpenWeatherMap().getCurrentConditionsByCityFormatted(city);
 
 		spm.getEvent().sendReply(weather);
 	}

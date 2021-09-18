@@ -2,6 +2,8 @@ package xyz.vppiet.hellu.services.football;
 
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
+import xyz.vppiet.hellu.services.football.models.FixturesModel;
+import xyz.vppiet.hellu.services.football.models.LeaguesModel;
 
 import java.util.Optional;
 
@@ -10,7 +12,7 @@ class ApiFootballTest {
 
 	@Test
 	void getCurrentLeaguesByCountryCode() {
-		ApiFootball apiFootball = new ApiFootball("apiKey");
+		ApiFootball apiFootball = new ApiFootball();
 		Optional<LeaguesModel> optLeagues = apiFootball.getCurrentLeaguesByCountryCode("GB");
 
 		if (optLeagues.isPresent()) {
@@ -30,7 +32,7 @@ class ApiFootballTest {
 
 	@Test
 	void getLiveFixturesByLeague() {
-		ApiFootball apiFootball = new ApiFootball("apiKey");
+		ApiFootball apiFootball = new ApiFootball();
 		Optional<FixturesModel> optFixtures = apiFootball.getLiveFixturesByLeague(40);
 
 		if (optFixtures.isPresent()) {

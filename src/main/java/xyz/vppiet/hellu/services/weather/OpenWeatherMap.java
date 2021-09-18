@@ -1,105 +1,62 @@
 package xyz.vppiet.hellu.services.weather;
 
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
-import xyz.vppiet.hellu.HttpController;
-import xyz.vppiet.hellu.JsonModel;
+import xyz.vppiet.hellu.external.HttpController;
+import xyz.vppiet.hellu.json.DataModel;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+@Getter(AccessLevel.PACKAGE)
 @Log4j2
-class OpenWeatherMap {
+final class OpenWeatherMap {
 
-	static final String SCHEME = "https";
-	static final String HOST = "api.openweathermap.org";
-	static final String CURRENT_CONDITIONS_PATH = "/data/2.5/weather";
+	private static final String ENV_VAR = "HELLU_OPENWEATHERMAP";
+	private static final String SCHEME = "https";
+	private static final String HOST = "api.openweathermap.org";
+	private static final String CURRENT_CONDITIONS_PATH = "/data/2.5/weather";
 
-	private final String apiKey;
-
-	OpenWeatherMap(String apiKey) {
-		this.apiKey = apiKey;
+	OpenWeatherMap() {
 	}
 
-	String getCurrentConditionsByCity(String city) {
-		String query = "q=" + city + "&units=metric&appid=" + this.apiKey;        // TODO: escaping
+	String getCurrentConditionsByCityFormatted(String city) {
+		Optional<DataModel> body = this.getCurrentConditionsByCity(city);
+
+		if (body.isEmpty()) {
+			return "Something went wrong while retrieving current weather conditions.";
+		}
+
+		return body.get().formatted();
+	}
+
+	Optional<DataModel> getCurrentConditionsByCity(String city) {
+		String query = "q=" + city + "&units=metric&appid=";        // TODO: escaping
 
 		try {
-			URI uri = new URI(SCHEME, null, HOST, -1, CURRENT_CONDITIONS_PATH, query, null);
-
-			Map<String, String> headers = new HashMap<>();
-			headers.put("Accepts", "application/json");
-
-			HttpRequest request = HttpController.createGetRequest(uri, headers);
-
-			JsonModel body = HttpController.CLIENT.sendAsync(request, new CurrentConditionsBodyHandler())
+			URI uri = HttpController.createURI(SCHEME, HOST, CURRENT_CONDITIONS_PATH, query + System.getenv(ENV_VAR));
+			HttpRequest request = HttpController.createJsonGetRequest(uri);
+			HttpResponse.BodyHandler<DataModel> bodyHandler = CurrentConditionsModelHandler.getBodyHandler();
+			DataModel body = HttpController.getClient().sendAsync(request, bodyHandler)
 					.thenApply(HttpResponse::body).get(10, TimeUnit.SECONDS);
 
-			if (body instanceof CurrentConditionsNotFoundModel) {
-				CurrentConditionsNotFoundModel notFoundBody = (CurrentConditionsNotFoundModel) body;
-				return "City not found.";
-			}
-
-			if (body instanceof CurrentConditionsSuccessModel) {
-				CurrentConditionsSuccessModel successBody = (CurrentConditionsSuccessModel) body;
-
-				StringBuilder reply = new StringBuilder();
-
-				String name = successBody.name();
-				reply.append(name).append(", ");
-
-				String country = successBody.sys().country();
-				reply.append(country).append(": ");
-
-				float temp = successBody.main().temp();
-				String formattedTemp = String.format(Locale.ENGLISH, "%.1f", temp);
-				reply.append(formattedTemp).append("°C ");
-
-				float feelsLike = successBody.main().feels_like();
-				String formattedFeelsLike = String.format(Locale.ENGLISH, "%.1f", feelsLike);
-				reply.append("(").append(formattedFeelsLike).append("°C) ");
-
-				int pressure = successBody.main().pressure();
-				reply.append(pressure).append(" hPa ");
-
-				int humidity = successBody.main().humidity();
-				reply.append(humidity).append("% ");
-
-				float windSpeed = successBody.wind().speed();
-				String formattedWindSpeed = String.format(Locale.ENGLISH, "%.1f", windSpeed);
-				reply.append(formattedWindSpeed).append(" m/s ");
-
-				float windGust = successBody.wind().gust();
-				String formattedWindGust = String.format(Locale.ENGLISH, "%.1f", windGust);
-				reply.append("(").append(formattedWindGust).append(" m/s) ");
-
-				String description = successBody.weather().get(0).description();
-				reply.append(description);
-
-				return reply.toString();
-			}
-
-			return "Error: Something went wrong while retrieving weather data.";
-
+			return Optional.ofNullable(body);
 		} catch (URISyntaxException ex) {
 			log.error("Exception thrown during URI forming", ex);
-
-			return "Error: Invalid city name.";
+			return Optional.empty();
 		} catch (TimeoutException ex) {
 			log.error("HTTP request timed out", ex);
-
-			return "Error: HTTP request timed out.";
+			return Optional.empty();
 		} catch (ExecutionException | InterruptedException ex) {
 			log.error("Execution of the HTTP request was interrupted", ex);
-
-			return "Error: Something went wrong while retrieving weather data.";
+			return Optional.empty();
 		}
 	}
 }

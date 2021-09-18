@@ -10,7 +10,6 @@ import xyz.vppiet.hellu.eventlisteners.EventListener;
 import xyz.vppiet.hellu.eventlisteners.PrivateMessageListener;
 import xyz.vppiet.hellu.services.Service;
 import xyz.vppiet.hellu.services.football.FootballService;
-import xyz.vppiet.hellu.services.football.LeaguesCommand;
 import xyz.vppiet.hellu.services.football.LiveCommand;
 import xyz.vppiet.hellu.services.help.HelpService;
 import xyz.vppiet.hellu.services.help.ServicesCommand;
@@ -21,6 +20,7 @@ import xyz.vppiet.hellu.services.misc.SlapCommand;
 import xyz.vppiet.hellu.services.weather.CurrentConditionsCommand;
 import xyz.vppiet.hellu.services.weather.WeatherService;
 
+import java.io.File;
 import java.io.IOException;
 
 @Log4j2
@@ -38,9 +38,6 @@ public class Main {
 		EventListener<PrivateMessageEvent> privateMsgListener = new PrivateMessageListener();
 		privateMsgListener.addHellu(hellu);
 
-		// SERVICE SETTINGS
-		ServiceSettings serviceSettings = settings.getServiceSettings();
-
 		// SERVICE: MISC
 		Service miscService = new MiscService();
 		miscService.addCommand(new HelloCommand());
@@ -52,15 +49,11 @@ public class Main {
 		helpService.addCommand(new ServicesCommand());
 
 		// SERVICE: WEATHER
-		String weatherServiceApiKey = serviceSettings.getProperty(WeatherService.API_KEY_PROPERTY);
-		Service weatherService = new WeatherService(weatherServiceApiKey);
+		Service weatherService = new WeatherService();
 		weatherService.addCommand(new CurrentConditionsCommand());
 
 		// SERVICE: FOOTBALL
-		String footballServiceApiKey = serviceSettings.getProperty(FootballService.API_KEY_PROPERTY);
-		FootballService footballService = new FootballService(footballServiceApiKey);
-		footballService.loadLeaguesByCountry("FI");
-		footballService.loadLeaguesByCountry("GB");
+		FootballService footballService = new FootballService();
 		footballService.addCommand(new LiveCommand());
 
 		// SERVICE MANAGEMENT
@@ -75,5 +68,18 @@ public class Main {
 		hellu.addChannel("#hellu");
 		hellu.addChannel("#valioliiga");
 		hellu.connect();
+
+		// DEBUG // FIXME: 18.9.2021
+		// hellu.disconnect();
+		deleteFile("hellu.db");
+	}
+
+	private static void deleteFile(String name) {
+		File file = new File(name);
+		if (file.delete()) {
+			log.info("{} deleted", file.getName());
+		} else {
+			log.info("{} not deleted", file.getName());
+		}
 	}
 }

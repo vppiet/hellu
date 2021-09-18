@@ -8,8 +8,8 @@ class OpenWeatherMapTest {
 
 	@Test
 	void getCurrentConditionsByCity() {
-		OpenWeatherMap openWeatherMap = new OpenWeatherMap("apiKey");
-		String reply = openWeatherMap.getCurrentConditionsByCity("Kuusamo");
+		OpenWeatherMap openWeatherMap = new OpenWeatherMap();
+		String reply = openWeatherMap.getCurrentConditionsByCityFormatted("Kuusamo");
 		log.info(reply);
 	}
 }

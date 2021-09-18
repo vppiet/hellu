@@ -56,6 +56,11 @@ public class HelpService extends ServiceBase {
 		this.handleServiceHelp(re, ci, sm, s.get());
 	}
 
+	@Override
+	protected void initializeSchema() {
+
+	}
+
 	private void handleServiceHelp(ReplyableEvent re, CommandInvocation ci, ServiceManager sm, Service s) {
 		List<String> params = ci.getParams();
 		if (params.size() > 0) {

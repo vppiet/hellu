@@ -1,8 +1,10 @@
 package xyz.vppiet.hellu.services.football;
 
 import lombok.extern.log4j.Log4j2;
-import xyz.vppiet.hellu.HttpController;
-import xyz.vppiet.hellu.JsonModel;
+import xyz.vppiet.hellu.external.HttpController;
+import xyz.vppiet.hellu.json.DataModel;
+import xyz.vppiet.hellu.services.football.models.FixturesModel;
+import xyz.vppiet.hellu.services.football.models.LeaguesModel;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -18,15 +20,13 @@ import java.util.concurrent.TimeoutException;
 @Log4j2
 final class ApiFootball {
 
-	static final String SCHEME = "https";
-	static final String HOST = "v3.football.api-sports.io";
-	static final String LEAGUES_PATH = "/leagues";
-	static final String FIXTURES_PATH = "/fixtures";
+	private static final String ENV_VAR = "HELLU_APIFOOTBALL";
+	private static final String SCHEME = "https";
+	private static final String HOST = "v3.football.api-sports.io";
+	private static final String LEAGUES_PATH = "/leagues";
+	private static final String FIXTURES_PATH = "/fixtures";
 
-	private final String apiKey;
-
-	ApiFootball(String apiKey) {
-		this.apiKey = apiKey;
+	ApiFootball() {
 	}
 
 	Optional<LeaguesModel> getCurrentLeaguesByCountryCode(String countryCode) {
@@ -36,12 +36,11 @@ final class ApiFootball {
 			URI uri = new URI(SCHEME, null, HOST, -1, LEAGUES_PATH, query, null);
 
 			Map<String, String> headers = new HashMap<>();
-			headers.put("Accepts", "application/json");
-			headers.put("x-apisports-key", this.apiKey);
+			headers.put("x-apisports-key", System.getenv(ENV_VAR));
 
-			HttpRequest request = HttpController.createGetRequest(uri, headers);
+			HttpRequest request = HttpController.createJsonGetRequest(uri, headers);
 
-			JsonModel body = HttpController.CLIENT.sendAsync(request, new LeaguesBodyHandler())
+			DataModel body = HttpController.getClient().sendAsync(request, new LeaguesBodyHandler())
 					.thenApply(HttpResponse::body).get(30, TimeUnit.SECONDS);
 
 			if (body instanceof LeaguesModel) {
@@ -73,11 +72,11 @@ final class ApiFootball {
 
 			Map<String, String> headers = new HashMap<>();
 			headers.put("Accepts", "application/json");
-			headers.put("x-apisports-key", this.apiKey);
+			headers.put("x-apisports-key", System.getenv(ENV_VAR));
 
 			HttpRequest request = HttpController.createGetRequest(uri, headers);
 
-			JsonModel body = HttpController.CLIENT.sendAsync(request, new FixturesBodyHandler())
+			DataModel body = HttpController.getClient().sendAsync(request, new FixturesBodyHandler())
 					.thenApply(HttpResponse::body).get(30, TimeUnit.SECONDS);
 
 			if (body instanceof FixturesModel) {

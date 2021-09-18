@@ -139,4 +139,6 @@ public abstract class ServiceBase extends Subject implements Service {
 		this.removeSubscriber(c);
 		return this;
 	}
+
+	protected abstract void initializeSchema();
 }

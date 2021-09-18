@@ -9,24 +9,20 @@ import org.kitteh.irc.client.library.Client;
 import xyz.vppiet.hellu.eventlisteners.ListenedChannelMessage;
 import xyz.vppiet.hellu.eventlisteners.ListenedPrivateMessage;
 
-import javax.sql.ConnectionPoolDataSource;
-
 @Log4j2
 @Getter(AccessLevel.PUBLIC)
 public final class Hellu implements Observer {
 
 	private final Client ircClient;
 	private final ServiceManager serviceManager;
-	private final ConnectionPoolDataSource dataSource;
 
-	Hellu(IrcSettings is, DatabaseSettings ds) {
+	Hellu(IrcSettings is) {
 		this.ircClient = IrcClientFactory.getInstance(is);
 		this.serviceManager = new ServiceManager(this);
-		this.dataSource = DataSourceFactory.getInstance(ds);
 	}
 
 	Hellu(HelluSettings s) {
-		this(s.getIrcSettings(), s.getDatabaseSettings());
+		this(s.getIrcSettings());
 	}
 
 	@Override
