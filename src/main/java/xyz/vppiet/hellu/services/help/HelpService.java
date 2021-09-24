@@ -1,18 +1,20 @@
 package xyz.vppiet.hellu.services.help;
 
+import lombok.ToString;
 import org.kitteh.irc.client.library.event.helper.ReplyableEvent;
 import xyz.vppiet.hellu.CommandInvocation;
-import xyz.vppiet.hellu.ServiceManagedChannelMessage;
+import xyz.vppiet.hellu.ServiceManagedMessage;
 import xyz.vppiet.hellu.ServiceManager;
 import xyz.vppiet.hellu.services.Command;
 import xyz.vppiet.hellu.services.Service;
 import xyz.vppiet.hellu.services.ServiceBase;
-import xyz.vppiet.hellu.services.ServicedChannelMessage;
+import xyz.vppiet.hellu.services.ServicedMessage;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+@ToString(callSuper = true)
 public class HelpService extends ServiceBase {
 
 	private static final String NAME = "help";
@@ -26,25 +28,26 @@ public class HelpService extends ServiceBase {
 	}
 
 	@Override
-	public void handleServiceManagedChannelMessage(ServiceManagedChannelMessage smcm) {
-		CommandInvocation ci = smcm.getCommandInvocation();
-		ReplyableEvent re = smcm.getEvent();
+	public void handleServiceManagedMessage(ServiceManagedMessage smm) {
+		CommandInvocation ci = smm.getCommandInvocation();
+		ReplyableEvent re = smm.getReplyableEvent();
 		if (ci.isMatchingService()) {
 			this.replyWithHelp(re);
 
 			return;
 		}
 
+		// help service's command
 		String command = ci.getCommand();
-		Optional<Command> c = this.getCommand(command);
-		if (c.isPresent()) {
-			ServicedChannelMessage scm = new ServicedChannelMessage(smcm, this);
-			this.notifyObservers(this, scm);
+		if (this.getCommand(command).isPresent()) {
+			ServicedMessage sm = new ServicedMessage(smm, this);
+			this.notifyObservers(this, sm);
 
 			return;
 		}
 
-		ServiceManager sm = smcm.getSourceServiceManager();
+		// commands of other services
+		ServiceManager sm = smm.getSourceServiceManager();
 		Optional<Service> s = sm.getService(ci.getCommand());
 		if (s.isEmpty()) {
 			Collection<String> serviceNames = sm.getServiceNames();
@@ -54,11 +57,6 @@ public class HelpService extends ServiceBase {
 		}
 
 		this.handleServiceHelp(re, ci, sm, s.get());
-	}
-
-	@Override
-	protected void initializeSchema() {
-
 	}
 
 	private void handleServiceHelp(ReplyableEvent re, CommandInvocation ci, ServiceManager sm, Service s) {

@@ -9,15 +9,17 @@ import xyz.vppiet.hellu.eventlisteners.ChannelMessageListener;
 import xyz.vppiet.hellu.eventlisteners.EventListener;
 import xyz.vppiet.hellu.eventlisteners.PrivateMessageListener;
 import xyz.vppiet.hellu.services.Service;
+import xyz.vppiet.hellu.services.admin.AdminService;
 import xyz.vppiet.hellu.services.football.FootballService;
 import xyz.vppiet.hellu.services.football.LiveCommand;
 import xyz.vppiet.hellu.services.help.HelpService;
 import xyz.vppiet.hellu.services.help.ServicesCommand;
+import xyz.vppiet.hellu.services.misc.CoordinatesCommand;
 import xyz.vppiet.hellu.services.misc.HelloCommand;
 import xyz.vppiet.hellu.services.misc.MiscService;
-import xyz.vppiet.hellu.services.misc.QuitCommand;
+import xyz.vppiet.hellu.services.admin.QuitCommand;
 import xyz.vppiet.hellu.services.misc.SlapCommand;
-import xyz.vppiet.hellu.services.weather.CurrentConditionsCommand;
+import xyz.vppiet.hellu.services.weather.CurrentWeatherCommand;
 import xyz.vppiet.hellu.services.weather.WeatherService;
 
 import java.io.File;
@@ -38,27 +40,31 @@ public class Main {
 		EventListener<PrivateMessageEvent> privateMsgListener = new PrivateMessageListener();
 		privateMsgListener.addHellu(hellu);
 
+		// SERVICE: ADMIN
+		Service adminService = new AdminService()
+				.addCommand(new QuitCommand());
+
 		// SERVICE: MISC
-		Service miscService = new MiscService();
-		miscService.addCommand(new HelloCommand());
-		miscService.addCommand(new QuitCommand());
-		miscService.addCommand(new SlapCommand());
+		Service miscService = new MiscService()
+				.addCommand(new HelloCommand())
+				.addCommand(new SlapCommand())
+				.addCommand(new CoordinatesCommand());
 
 		// SERVICE: HELP
-		Service helpService = new HelpService();
-		helpService.addCommand(new ServicesCommand());
+		Service helpService = new HelpService()
+				.addCommand(new ServicesCommand());
 
 		// SERVICE: WEATHER
-		Service weatherService = new WeatherService();
-		weatherService.addCommand(new CurrentConditionsCommand());
+		Service weatherService = new WeatherService()
+				.addCommand(new CurrentWeatherCommand());
 
 		// SERVICE: FOOTBALL
-		FootballService footballService = new FootballService();
-		footballService.addCommand(new LiveCommand());
+		Service footballService = new FootballService()
+				.addCommand(new LiveCommand());
 
 		// SERVICE MANAGEMENT
-		ServiceManager serviceManager = hellu.getServiceManager();
-		serviceManager
+		hellu.getServiceManager()
+				.addService(adminService)
 				.addService(miscService)
 				.addService(helpService)
 				.addService(weatherService)
@@ -67,11 +73,11 @@ public class Main {
 		// RUN
 		hellu.addChannel("#hellu");
 		hellu.addChannel("#valioliiga");
-		hellu.connect();
 
-		// DEBUG // FIXME: 18.9.2021
-		// hellu.disconnect();
-		deleteFile("hellu.db");
+		// DEBUG
+		hellu.connect();
+		//hellu.disconnect();
+		//deleteFile("hellu.db");
 	}
 
 	private static void deleteFile(String name) {

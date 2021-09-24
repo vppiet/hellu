@@ -3,6 +3,7 @@ package xyz.vppiet.hellu.external;
 import lombok.extern.log4j.Log4j2;
 import org.sqlite.javax.SQLiteConnectionPoolDataSource;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -21,6 +22,10 @@ public final class SqlController {
 
 	public static Connection getConnection() throws SQLException {
 		return CONNECTION_POOL.getConnection();
+	}
+
+	public static DataSource getDataSource() {
+		return CONNECTION_POOL;
 	}
 
 	public static void executeRaw(String rawSql) {

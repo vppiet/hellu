@@ -6,8 +6,7 @@ import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 import org.kitteh.irc.client.library.event.helper.ReplyableEvent;
 import xyz.vppiet.hellu.CommandInvocation;
-import xyz.vppiet.hellu.ServiceManagedChannelMessage;
-import xyz.vppiet.hellu.ServiceManagedPrivateMessage;
+import xyz.vppiet.hellu.ServiceManagedMessage;
 import xyz.vppiet.hellu.Subject;
 
 import java.util.Collection;
@@ -17,9 +16,10 @@ import java.util.stream.Collectors;
 
 @Getter(AccessLevel.PUBLIC)
 @Log4j2
-@ToString
+@ToString(onlyExplicitlyIncluded = true)
 public abstract class ServiceBase extends Subject implements Service {
 
+	@ToString.Include
 	protected final String name;
 	protected final String description;
 
@@ -36,7 +36,11 @@ public abstract class ServiceBase extends Subject implements Service {
 			return this;
 		}
 
+		if (this.containsCommand(c)) return this;
+
 		this.addSubscriber(c);
+		log.info("Command added: {}", c);
+
 		return this;
 	}
 
@@ -78,47 +82,23 @@ public abstract class ServiceBase extends Subject implements Service {
 	}
 
 	@Override
-	public void handleServiceManagedChannelMessage(ServiceManagedChannelMessage smcm) {
-		CommandInvocation ci = smcm.getCommandInvocation();
-
-		if (ci.isMatchingService()) {
-			ReplyableEvent re = smcm.getEvent();
-			this.replyWithHelp(re);
-		} else {
-			ServicedChannelMessage scm = new ServicedChannelMessage(smcm, this);
-			this.notifyObservers(this, scm);
-		}
-	}
-
-	@Override
-	public void handleServiceManagedPrivateMessage(ServiceManagedPrivateMessage smpm) {
-		CommandInvocation ci = smpm.getCommandInvocation();
-
-		if (ci.isMatchingService()) {
-			ReplyableEvent re = smpm.getEvent();
-			this.replyWithHelp(re);
-		} else {
-			ServicedPrivateMessage spm = new ServicedPrivateMessage(smpm, this);
-			this.notifyObservers(this, spm);
-		}
-	}
-
-	@Override
 	public void onNext(Subject subj, Object obj) {
-		if (obj instanceof ServiceManagedChannelMessage) {
-			ServiceManagedChannelMessage smcm = (ServiceManagedChannelMessage) obj;
-			CommandInvocation ci = smcm.getCommandInvocation();
+		if (obj instanceof ServiceManagedMessage) {
+			ServiceManagedMessage smm = (ServiceManagedMessage) obj;
+			if (!this.matches(smm.getCommandInvocation())) return;
 
-			if (!this.matches(ci)) return;
+			this.handleServiceManagedMessage(smm);
+		}
+	}
 
-			this.handleServiceManagedChannelMessage(smcm);
-		} else if (obj instanceof ServiceManagedPrivateMessage) {
-			ServiceManagedPrivateMessage smpm = (ServiceManagedPrivateMessage) obj;
-			CommandInvocation ci = smpm.getCommandInvocation();
-
-			if (!this.matches(ci)) return;
-
-			this.handleServiceManagedPrivateMessage(smpm);
+	@Override
+	public void handleServiceManagedMessage(ServiceManagedMessage smm) {
+		CommandInvocation ci = smm.getCommandInvocation();
+		if (ci.isMatchingService()) {
+			this.replyWithHelp(smm.getReplyableEvent());
+		} else {
+			ServicedMessage sm = new ServicedMessage(smm, this);
+			this.notifyObservers(this, sm);
 		}
 	}
 
@@ -136,9 +116,11 @@ public abstract class ServiceBase extends Subject implements Service {
 
 	@Override
 	public Service removeCommand(Command c) {
+		if (!this.containsCommand(c)) return this;
+
 		this.removeSubscriber(c);
+		log.info("Command removed: {}", c);
+
 		return this;
 	}
-
-	protected abstract void initializeSchema();
 }

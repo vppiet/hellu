@@ -4,13 +4,10 @@ import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 
 import org.kitteh.irc.client.library.element.User;
-import org.kitteh.irc.client.library.event.channel.ChannelMessageEvent;
 import org.kitteh.irc.client.library.event.helper.ReplyableEvent;
-import org.kitteh.irc.client.library.event.user.PrivateMessageEvent;
 import xyz.vppiet.hellu.services.CommandBase;
-import xyz.vppiet.hellu.services.CommandParameterManager;
-import xyz.vppiet.hellu.services.ServicedChannelMessage;
-import xyz.vppiet.hellu.services.ServicedPrivateMessage;
+import xyz.vppiet.hellu.services.ParameterManager;
+import xyz.vppiet.hellu.services.ServicedMessage;
 
 @Log4j2
 @ToString(callSuper = true)
@@ -19,24 +16,16 @@ public final class HelloCommand extends CommandBase {
 	private static final String SERVICE = "misc";
 	private static final String NAME = "hello";
 	private static final String DESCRIPTION = "Says hello to a user.";
-	private static final CommandParameterManager PARAMS = new CommandParameterManager();
+	private static final ParameterManager PARAMS = new ParameterManager();
 
 	public HelloCommand() {
 		super(SERVICE, NAME, DESCRIPTION, PARAMS);
 	}
 
 	@Override
-	public void handleServicedChannelMessage(ServicedChannelMessage scm) {
-		final ChannelMessageEvent event = scm.getEvent();
-		final User user = event.getActor();
-
-		this.replyWithHello(event, user);
-	}
-
-	@Override
-	public void handleServicedPrivateMessage(ServicedPrivateMessage spm) {
-		final PrivateMessageEvent event = spm.getEvent();
-		final User user = event.getActor();
+	public void handleServicedMessage(ServicedMessage sm) {
+		final ReplyableEvent event = sm.getReplyableEvent();
+		final User user = sm.getUser();
 
 		this.replyWithHello(event, user);
 	}

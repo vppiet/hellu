@@ -8,31 +8,44 @@ import lombok.extern.log4j.Log4j2;
 import xyz.vppiet.hellu.CommandInvocation;
 import xyz.vppiet.hellu.CommandProperties;
 import xyz.vppiet.hellu.Subject;
+import xyz.vppiet.hellu.external.SqlController;
 
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.time.Instant;
 
-@Getter(AccessLevel.PUBLIC)
 @Log4j2
-@ToString
+@ToString(onlyExplicitlyIncluded = true)
 public abstract class CommandBase implements Command {
 
+	@ToString.Include
+	@Getter(AccessLevel.PUBLIC)
 	protected final String service;
+
+	@ToString.Include
+	@Getter(AccessLevel.PUBLIC)
 	protected final String name;
+
+	@Getter(AccessLevel.PUBLIC)
 	protected final String description;
-	protected final CommandParameterManager parameterManager;
+
+	@Getter(AccessLevel.PUBLIC)
+	protected final ParameterManager parameterManager;
+
+	@Getter(AccessLevel.PACKAGE)
+	protected final CommandMatchObservationDao commandMatchObservationDao;
 
 	public CommandBase(String service, String name, String description,
-					   CommandParameterManager commandParameterManager) {
+					   ParameterManager parameterManager) {
 		this.service = service;
 		this.name = name;
 		this.description = description;
-		this.parameterManager = commandParameterManager;
+		this.parameterManager = parameterManager;
+		this.commandMatchObservationDao = new CommandMatchObservationDao(SqlController.getDataSource());
 	}
 
 	@Override
 	public String getHelp() {
-		StringBuilder sb = new StringBuilder(this.getDescription());
+		final StringBuilder sb = new StringBuilder();
+		sb.append(this.getDescription());
 		sb.append(" ");
 		sb.append("Usage: ");
 		sb.append(this.getUsage());
@@ -42,16 +55,19 @@ public abstract class CommandBase implements Command {
 
 	@Override
 	public String getUsage() {
-		final StringBuilder sb = new StringBuilder(CommandProperties.SERVICE_PREFIX + this.getService() +
-				CommandProperties.COMMAND_SEPARATOR + this.name);
-		final CommandParameterManager manager = this.getParameterManager();
-		final Map<String, CommandParameter<? extends Comparable<?>>> params = manager.getParameters();
+		final StringBuilder sb = new StringBuilder()
+				.append(CommandProperties.SERVICE_PREFIX)
+				.append(this.getService())
+				.append(CommandProperties.COMMAND_SEPARATOR)
+				.append(this.getName());
 
-		if (params.isEmpty()) return sb.toString();
+		final String paramUsage = this.getParameterManager().getUsage();
 
-		final String paramUsage = params.values().stream().map(cp -> "<" + cp.getName() + ">").collect(Collectors.joining(CommandProperties.PARAM_SEPARATOR));
-		sb.append(" ");
-		sb.append(paramUsage);
+		if (paramUsage.isEmpty()) {
+			return sb.toString();
+		}
+
+		sb.append(CommandProperties.COMMAND_SEPARATOR).append(paramUsage);
 
 		return sb.toString();
 	}
@@ -61,47 +77,43 @@ public abstract class CommandBase implements Command {
 		final String service = ci.getService();
 		final String command = ci.getCommand();
 
-		return (service.equals(this.service) && command.equals(this.name));
+		if (!(service.equals(this.service) && command.equals(this.name))) return false;
+
+		CommandMatchObservation cmo = CommandMatchObservation.builder()
+				.setService(this.getService())
+				.setCommand(this.getName())
+				.setTimestamp(Instant.now())
+				.build();
+		this.getCommandMatchObservationDao().add(cmo);
+
+		log.info("New command invocation: {}", cmo);
+
+		return true;
 	}
 
 	@Override
-	public boolean parameterCountMatches(CommandInvocation ci) {
-		final int commandParamSize = this.getParameterManager().getParameters().size();
+	public boolean requiredParameterSizeMatches(CommandInvocation ci) {
 		final int givenParamSize = ci.getParams().size();
+		final int requiredSize = this.getParameterManager().getRequired().size();
 
-		return commandParamSize == givenParamSize;
+		return givenParamSize >= requiredSize;
 	}
 
 	@Override
 	public void onNext(Subject subj, Object obj) {
-		if (obj instanceof ServicedChannelMessage) {
-			final ServicedChannelMessage scm = (ServicedChannelMessage) obj;
-			final CommandInvocation ci = scm.getCommandInvocation();
+		if (obj instanceof ServicedMessage) {
+			ServicedMessage sm = (ServicedMessage) obj;
+			CommandInvocation ci = sm.getCommandInvocation();
 
 			if (!this.matches(ci)) return;
 
-			if (!this.parameterCountMatches(ci)) {
-				final String usage = "Usage: " + this.getUsage();
-				scm.getEvent().sendReply(usage);
-
+			if (!this.requiredParameterSizeMatches(ci)) {
+				String usage = "Usage: " + this.getUsage();
+				sm.getReplyableEvent().sendReply(usage);
 				return;
 			}
 
-			this.handleServicedChannelMessage(scm);
-		} else if (obj instanceof ServicedPrivateMessage) {
-			final ServicedPrivateMessage spm = (ServicedPrivateMessage) obj;
-			final CommandInvocation ci = spm.getCommandInvocation();
-
-			if (!this.matches(ci)) return;
-
-			if (!this.parameterCountMatches(ci)) {
-				final String usage = "Usage: " + this.getUsage();
-				spm.getEvent().sendReply(usage);
-
-				return;
-			}
-
-			this.handleServicedPrivateMessage(spm);
+			this.handleServicedMessage(sm);
 		}
 	}
 }

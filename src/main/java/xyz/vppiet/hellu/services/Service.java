@@ -3,8 +3,7 @@ package xyz.vppiet.hellu.services;
 import org.kitteh.irc.client.library.event.helper.ReplyableEvent;
 import xyz.vppiet.hellu.CommandInvocation;
 import xyz.vppiet.hellu.Observer;
-import xyz.vppiet.hellu.ServiceManagedChannelMessage;
-import xyz.vppiet.hellu.ServiceManagedPrivateMessage;
+import xyz.vppiet.hellu.ServiceManagedMessage;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -21,7 +20,6 @@ public interface Service extends Observer {
 	String getName();
 	boolean matches(CommandInvocation ci);
 	void replyWithHelp(ReplyableEvent re);
-	void handleServiceManagedChannelMessage(ServiceManagedChannelMessage smcm);
-	void handleServiceManagedPrivateMessage(ServiceManagedPrivateMessage smpm);
+	void handleServiceManagedMessage(ServiceManagedMessage smm);
 	Service removeCommand(Command c);
 }

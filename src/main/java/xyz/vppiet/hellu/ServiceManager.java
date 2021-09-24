@@ -4,8 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 
-import xyz.vppiet.hellu.eventlisteners.ListenedChannelMessage;
-import xyz.vppiet.hellu.eventlisteners.ListenedPrivateMessage;
+import xyz.vppiet.hellu.eventlisteners.ListenedMessage;
 import xyz.vppiet.hellu.services.Service;
 
 import java.util.Collection;
@@ -24,13 +23,9 @@ public final class ServiceManager extends Subject {
 
 	public ServiceManager addService(Service s) {
 		this.addSubscriber(s);
-		return this;
-	}
+		log.info("Service added: {}", s);
 
-	public Collection<String> getServiceNames() {
-		synchronized (this.observers) {
-			return this.getServices().stream().map(Service::getName).collect(Collectors.toUnmodifiableList());
-		}
+		return this;
 	}
 
 	public Collection<Service> getServices() {
@@ -50,18 +45,21 @@ public final class ServiceManager extends Subject {
 		}
 	}
 
-	public void handleListenedChannelMessage(ListenedChannelMessage lcm) {
-		ServiceManagedChannelMessage smcm = new ServiceManagedChannelMessage(lcm, this);
-		this.notifyObservers(this, smcm);
+	public Collection<String> getServiceNames() {
+		synchronized (this.observers) {
+			return this.getServices().stream().map(Service::getName).collect(Collectors.toUnmodifiableList());
+		}
 	}
 
-	public void handleListenedPrivateMessage(ListenedPrivateMessage lpm) {
-		ServiceManagedPrivateMessage smpm = new ServiceManagedPrivateMessage(lpm, this);
-		this.notifyObservers(this, smpm);
+	public void handleListenedMessage(ListenedMessage lm) {
+		ServiceManagedMessage smm = new ServiceManagedMessage(lm, this);
+		this.notifyObservers(this, smm);
 	}
 
 	public ServiceManager removeService(Service s) {
 		this.removeSubscriber(s);
+		log.info("Service removed: {}", s);
+
 		return this;
 	}
 }

@@ -7,9 +7,12 @@ import net.engio.mbassy.listener.Invoke;
 import net.engio.mbassy.listener.Listener;
 import net.engio.mbassy.subscription.SubscriptionContext;
 
+import org.kitteh.irc.client.library.element.User;
 import org.kitteh.irc.client.library.event.channel.ChannelMessageEvent;
 
+import xyz.vppiet.hellu.CommandInvocation;
 import xyz.vppiet.hellu.CommandProperties;
+import xyz.vppiet.hellu.MessageType;
 
 @Listener
 public final class ChannelMessageListener extends EventListenerBase<ChannelMessageEvent> {
@@ -17,8 +20,13 @@ public final class ChannelMessageListener extends EventListenerBase<ChannelMessa
 	@Override
 	@Handler(delivery = Invoke.Asynchronously, filters = {@Filter(MessageFilter.class)}, rejectSubtypes = true)
 	public void handleEvent(ChannelMessageEvent event) {
-		ListenedChannelMessage cli = new ListenedChannelMessage(event, this);
-		this.notifyObservers(this, cli);
+		String message = event.getMessage();
+		MessageType type = MessageType.CHANNEL;
+		User user = event.getActor();
+		CommandInvocation ci = CommandInvocation.from(event);
+
+		ListenedMessage listenedMessage = new ListenedMessage(event, this, event, message, type, user, ci);
+		this.notifyObservers(this, listenedMessage);
 	}
 
 	public static final class MessageFilter implements IMessageFilter<ChannelMessageEvent> {

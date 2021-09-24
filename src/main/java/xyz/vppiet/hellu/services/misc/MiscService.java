@@ -14,9 +14,4 @@ public class MiscService extends ServiceBase {
 	public MiscService() {
 		super(NAME, DESCRIPTION);
 	}
-
-	@Override
-	protected void initializeSchema() {
-
-	}
 }

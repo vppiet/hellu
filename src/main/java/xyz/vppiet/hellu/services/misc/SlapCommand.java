@@ -1,5 +1,6 @@
 package xyz.vppiet.hellu.services.misc;
 
+import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 
 import org.kitteh.irc.client.library.element.Channel;
@@ -9,44 +10,44 @@ import org.kitteh.irc.client.library.event.helper.ReplyableEvent;
 import org.kitteh.irc.client.library.event.user.PrivateMessageEvent;
 import org.kitteh.irc.client.library.util.CtcpUtil;
 
-import xyz.vppiet.hellu.services.CommandParameterManager;
-import xyz.vppiet.hellu.services.StringCommandParameter;
+import xyz.vppiet.hellu.MessageType;
+import xyz.vppiet.hellu.services.ParameterManager;
 import xyz.vppiet.hellu.services.CommandBase;
-import xyz.vppiet.hellu.CommandInvocation;
-import xyz.vppiet.hellu.services.ServicedChannelMessage;
-import xyz.vppiet.hellu.services.ServicedPrivateMessage;
+import xyz.vppiet.hellu.services.ServicedMessage;
 
 import java.util.Optional;
 
 @Log4j2
+@ToString(callSuper = true)
 public class SlapCommand extends CommandBase {
 
 	private static final String SERVICE = "misc";
 	private static final String NAME = "slap";
 	private static final String DESCRIPTION = "Slaps a user.";
-	private static final CommandParameterManager PARAMS = new CommandParameterManager(
-			new StringCommandParameter("user", "")
-	);
+	private static final ParameterManager PARAMS = new ParameterManager().addRequired("user");
 
 	public SlapCommand() {
 		super(SERVICE, NAME, DESCRIPTION, PARAMS);
 	}
 
 	@Override
-	public void handleServicedChannelMessage(ServicedChannelMessage scm) {
-		ChannelMessageEvent event = scm.getEvent();
-		Channel channel = event.getChannel();
+	public void handleServicedMessage(ServicedMessage sm) {
+		MessageType type = sm.getType();
+		String targetUser = sm.getCommandInvocation().getParams().get(0);
+		String currentNick = sm.getSourceServiceManager().getHellu().getIrcClient().getNick();
 
-		CommandInvocation ci = scm.getCommandInvocation();
-		String paramUser = ci.getParams().get(0);
+		if (type.equals(MessageType.CHANNEL)) {
+			this.handleChannelMessage((ChannelMessageEvent) sm.getSourceEvent(), targetUser, currentNick);
+		} else if (type.equals(MessageType.PRIVATE)) {
+			this.handlePrivateMessage((PrivateMessageEvent) sm.getSourceService(), targetUser, currentNick);
+		}
+	}
 
-		Optional<User> optUser = channel.getUser(paramUser);
-
+	private void handleChannelMessage(ChannelMessageEvent event, String targetUser, String currentNick) {
+		Optional<User> optUser = event.getChannel().getUser(targetUser);
 		if (optUser.isEmpty()) return;
 
 		User user = optUser.get();
-		String currentNick = scm.getSourceServiceManager().getHellu().getIrcClient().getNick();
-
 		if (user.getNick().equals(currentNick)) {
 			this.slapMyself(event);
 		} else {
@@ -54,15 +55,8 @@ public class SlapCommand extends CommandBase {
 		}
 	}
 
-	@Override
-	public void handleServicedPrivateMessage(ServicedPrivateMessage spm) {
-		PrivateMessageEvent event = spm.getEvent();
-
-		CommandInvocation ci = spm.getCommandInvocation();
-		String paramUser = ci.getParams().get(0);
-		String helluNick = spm.getSourceServiceManager().getHellu().getIrcClient().getNick();
-
-		if (!paramUser.equals(helluNick)) return;
+	private void handlePrivateMessage(PrivateMessageEvent event, String targetUser, String currentNick) {
+		if (!targetUser.equals(currentNick)) return;
 
 		this.slapMyself(event);
 	}

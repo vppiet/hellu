@@ -7,9 +7,12 @@ import net.engio.mbassy.listener.Invoke;
 import net.engio.mbassy.listener.Listener;
 import net.engio.mbassy.subscription.SubscriptionContext;
 
+import org.kitteh.irc.client.library.element.User;
 import org.kitteh.irc.client.library.event.user.PrivateMessageEvent;
 
+import xyz.vppiet.hellu.CommandInvocation;
 import xyz.vppiet.hellu.CommandProperties;
+import xyz.vppiet.hellu.MessageType;
 
 @Listener
 public final class PrivateMessageListener extends EventListenerBase<PrivateMessageEvent> {
@@ -17,8 +20,13 @@ public final class PrivateMessageListener extends EventListenerBase<PrivateMessa
 	@Override
 	@Handler(delivery = Invoke.Asynchronously, filters = {@Filter(MessageFilter.class)}, rejectSubtypes = true)
 	public void handleEvent(PrivateMessageEvent event) {
-		ListenedPrivateMessage pmi = new ListenedPrivateMessage(event, this);
-		this.notifyObservers(this, pmi);
+		String message = event.getMessage();
+		MessageType type = MessageType.PRIVATE;
+		User user = event.getActor();
+		CommandInvocation ci = CommandInvocation.from(event);
+
+		ListenedMessage listenedMessage = new ListenedMessage(event, this, event, message, type, user, ci);
+		this.notifyObservers(this, listenedMessage);
 	}
 
 	public static final class MessageFilter implements IMessageFilter<PrivateMessageEvent> {

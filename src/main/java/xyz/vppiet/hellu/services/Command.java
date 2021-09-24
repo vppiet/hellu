@@ -9,9 +9,8 @@ public interface Command extends Observer {
 	String getName();
 	String getService();
 	String getUsage();
-	CommandParameterManager getParameterManager();
+	ParameterManager getParameterManager();
 	boolean matches(CommandInvocation ci);
-	void handleServicedChannelMessage(ServicedChannelMessage scm);
-	void handleServicedPrivateMessage(ServicedPrivateMessage spm);
-	boolean parameterCountMatches(CommandInvocation ci);
+	void handleServicedMessage(ServicedMessage sm);
+	boolean requiredParameterSizeMatches(CommandInvocation ci);
 }
